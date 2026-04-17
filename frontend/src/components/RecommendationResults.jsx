@@ -16,7 +16,7 @@ const RecommendationResults = ({ colleges }) => {
         <p className="text-sm text-slate-500">Sorted by score</p>
       </div>
 
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
         {colleges.map((college) => (
           <CollegeCard key={college._id} college={college} showScore showTag />
         ))}

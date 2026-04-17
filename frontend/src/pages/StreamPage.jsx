@@ -290,7 +290,7 @@ const StreamPage = () => {
               No colleges found for the selected filters.
             </div>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
+            <div className="grid gap-8 sm:grid-cols-2 2xl:grid-cols-3">
               {visibleColleges.map((college, index) => (
                 <motion.div
                   key={college._id}
