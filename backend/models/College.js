@@ -13,6 +13,11 @@ const collegeSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    type: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     courses: {
       type: [String],
       required: true,

@@ -1,6 +1,7 @@
 const College = require('../models/College');
 
 const normalize = (value = '') => value.trim().toLowerCase();
+const escapeRegex = (value = '') => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const getCollegeTag = (studentRank, collegeCutoff) => {
   if (collegeCutoff >= studentRank * 1.2) {
@@ -16,10 +17,34 @@ const getCollegeTag = (studentRank, collegeCutoff) => {
 
 const getAllColleges = async (req, res, next) => {
   try {
-    const colleges = await College.find().sort({ cutoff_rank: 1 });
+    const { type, rank, budget, location, course } = req.query;
+    const query = {};
+
+    if (type) {
+      query.type = { $regex: new RegExp(`^${escapeRegex(type.trim())}$`, 'i') };
+    }
+
+    if (rank) {
+      query.cutoff_rank = { $gte: Number(rank) };
+    }
+
+    if (budget) {
+      query.fees = { $lte: Number(budget) };
+    }
+
+    if (location) {
+      query.location = { $regex: new RegExp(`^${escapeRegex(location.trim())}$`, 'i') };
+    }
+
+    if (course) {
+      query.courses = { $elemMatch: { $regex: new RegExp(`^${escapeRegex(course.trim())}$`, 'i') } };
+    }
+
+    const colleges = await College.find(query).sort({ cutoff_rank: 1 });
     return res.status(200).json({
       success: true,
       count: colleges.length,
+      filters: { type, rank, budget, location, course },
       data: colleges,
     });
   } catch (error) {
@@ -33,7 +58,7 @@ const filterColleges = async (req, res, next) => {
     const query = {};
 
     if (location) {
-      query.location = { $regex: new RegExp(`^${location}$`, 'i') };
+      query.location = { $regex: new RegExp(`^${escapeRegex(location)}$`, 'i') };
     }
 
     if (maxFees) {
@@ -41,7 +66,7 @@ const filterColleges = async (req, res, next) => {
     }
 
     if (course) {
-      query.courses = { $elemMatch: { $regex: new RegExp(`^${course}$`, 'i') } };
+      query.courses = { $elemMatch: { $regex: new RegExp(`^${escapeRegex(course)}$`, 'i') } };
     }
 
     const colleges = await College.find(query).sort({ fees: 1 });
@@ -59,7 +84,7 @@ const filterColleges = async (req, res, next) => {
 
 const recommendColleges = async (req, res, next) => {
   try {
-    const { rank, budget, location, course } = req.body;
+    const { rank, budget, location, course, category } = req.body;
 
     if (
       rank === undefined ||
@@ -119,7 +144,7 @@ const recommendColleges = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      user_input: { rank: studentRank, budget: studentBudget, location, course },
+      user_input: { rank: studentRank, budget: studentBudget, location, course, category: category || '' },
       count: scoredColleges.length,
       data: scoredColleges,
     });

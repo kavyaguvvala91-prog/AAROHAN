@@ -1,0 +1,344 @@
+Name,Location,Course,Cutoff Rank,Fee (INR),Avg Package (LPA),Hostel Available,Boys Hostel,Girls Hostel,Hostel Fees (Per Year),Hostel Type,Mess Fees Included,Total Hostel Cost (Approx),Hostel Distance from Campus,Facilities
+IIT Hyderabad,Sangareddy,CSE,5561,150000,9.8,Yes,No,No,126654,AC,Yes,140989,On-campus,"WiFi, Security, Laundry"
+IIT Hyderabad,Sangareddy,CSE(AI),16550,140000,7.2,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+IIT Hyderabad,Sangareddy,CSE(DS),24999,80000,3.5,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+IIT Hyderabad,Sangareddy,IT,24047,100000,6.3,Yes,Yes,No,135794,Non-AC,Yes,156336,Off-campus,"WiFi, Security"
+IIT Hyderabad,Sangareddy,ECE,24940,100000,3.9,Yes,Yes,No,54865,Non-AC,No,72177,On-campus,"WiFi, Laundry"
+IIT Hyderabad,Sangareddy,EEE,34158,140000,5.3,Yes,Yes,No,67708,Non-AC,Yes,84869,Off-campus,"Security, Laundry"
+IIT Hyderabad,Sangareddy,MECH,32683,120000,7.4,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+NIT Warangal,Warangal,CSE,8375,80000,4.9,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+NIT Warangal,Warangal,CSE(AI),8977,100000,3.5,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+NIT Warangal,Warangal,CSE(DS),12417,150000,3.6,Yes,No,No,56404,Both,No,73770,On-campus,"WiFi, Laundry"
+NIT Warangal,Warangal,IT,8289,140000,9.4,Yes,No,No,106030,Both,Yes,118423,On-campus,"WiFi, Security"
+NIT Warangal,Warangal,ECE,18614,140000,6.5,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+NIT Warangal,Warangal,EEE,28485,80000,6.1,Yes,Yes,Yes,98546,Both,Yes,120631,Off-campus,"WiFi, Security"
+NIT Warangal,Warangal,MECH,45355,150000,6.4,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+IIIT Hyderabad,Hyderabad,CSE,11212,120000,9.2,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+IIIT Hyderabad,Hyderabad,CSE(AI),4750,80000,9.6,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+IIIT Hyderabad,Hyderabad,CSE(DS),10661,150000,6.5,Yes,Yes,No,123005,Both,Yes,134930,On-campus,"WiFi, Security"
+IIIT Hyderabad,Hyderabad,IT,26672,140000,3.2,Yes,No,Yes,98203,AC,No,113064,Off-campus,"Security, Laundry"
+IIIT Hyderabad,Hyderabad,ECE,20748,100000,3.3,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+IIIT Hyderabad,Hyderabad,EEE,22828,100000,5.6,Yes,Yes,No,120962,AC,Yes,142768,On-campus,"Security, Laundry"
+IIIT Hyderabad,Hyderabad,MECH,49565,120000,6.6,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+BITS Hyderabad,Hyderabad,CSE,17002,100000,6.1,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+BITS Hyderabad,Hyderabad,CSE(AI),10636,100000,4.6,Yes,No,Yes,101550,Non-AC,Yes,123547,On-campus,"WiFi, Laundry"
+BITS Hyderabad,Hyderabad,CSE(DS),13834,80000,7,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+BITS Hyderabad,Hyderabad,IT,17115,80000,7.3,Yes,Yes,Yes,111650,Non-AC,No,131546,Off-campus,"WiFi, Security"
+BITS Hyderabad,Hyderabad,ECE,18120,80000,3.5,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+BITS Hyderabad,Hyderabad,EEE,29699,120000,9.1,Yes,Yes,No,83396,Non-AC,Yes,97365,On-campus,"WiFi, Security"
+BITS Hyderabad,Hyderabad,MECH,33619,120000,4.2,Yes,Yes,Yes,133489,Non-AC,No,154288,On-campus,"Security, Laundry"
+JNTUH,Hyderabad,CSE,21237,100000,3.1,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+JNTUH,Hyderabad,CSE(AI),8477,120000,8.6,Yes,No,Yes,65094,Both,No,77351,On-campus,"WiFi, Security"
+JNTUH,Hyderabad,CSE(DS),6546,150000,6.3,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+JNTUH,Hyderabad,IT,19395,140000,3.5,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+JNTUH,Hyderabad,ECE,19274,80000,4.8,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+JNTUH,Hyderabad,EEE,30699,140000,5.6,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+JNTUH,Hyderabad,MECH,41028,140000,3.6,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Osmania University,Hyderabad,CSE,15734,140000,9.1,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Osmania University,Hyderabad,CSE(AI),7276,100000,3.1,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Osmania University,Hyderabad,CSE(DS),22316,80000,8.1,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Osmania University,Hyderabad,IT,19768,120000,9.1,Yes,No,Yes,126607,Both,No,141513,On-campus,"WiFi, Laundry"
+Osmania University,Hyderabad,ECE,20313,100000,8.7,Yes,Yes,No,74695,Both,Yes,100737,On-campus,"WiFi, Security, Laundry"
+Osmania University,Hyderabad,EEE,33527,120000,6.2,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Osmania University,Hyderabad,MECH,33488,120000,6.8,Yes,No,Yes,118968,Both,No,138888,On-campus,"WiFi, Security, Laundry"
+CBIT,Hyderabad,CSE,3243,100000,7.5,Yes,No,Yes,66471,Both,No,83730,Off-campus,"Security, Laundry"
+CBIT,Hyderabad,CSE(AI),20125,80000,3.2,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+CBIT,Hyderabad,CSE(DS),7362,120000,5.1,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+CBIT,Hyderabad,IT,19183,80000,4.7,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+CBIT,Hyderabad,ECE,12701,150000,7.5,Yes,No,Yes,83986,Both,No,96695,On-campus,"WiFi, Security"
+CBIT,Hyderabad,EEE,37206,140000,9,Yes,Yes,Yes,93166,AC,Yes,115064,On-campus,"WiFi, Security, Laundry"
+CBIT,Hyderabad,MECH,31209,100000,4.8,Yes,Yes,Yes,102620,AC,Yes,131069,On-campus,"WiFi, Security"
+VNR VJIET,Hyderabad,CSE,11634,100000,3.8,Yes,No,Yes,125390,Non-AC,Yes,154592,Off-campus,"WiFi, Laundry"
+VNR VJIET,Hyderabad,CSE(AI),13061,150000,6.3,Yes,No,No,119583,Both,Yes,139954,On-campus,"Security, Laundry"
+VNR VJIET,Hyderabad,CSE(DS),19167,100000,6.9,Yes,Yes,Yes,89811,AC,No,107850,On-campus,"WiFi, Laundry"
+VNR VJIET,Hyderabad,IT,14469,140000,6.8,Yes,Yes,No,56688,AC,Yes,70042,On-campus,"WiFi, Laundry"
+VNR VJIET,Hyderabad,ECE,21741,100000,8.2,Yes,No,Yes,86349,AC,No,98185,On-campus,"Security, Laundry"
+VNR VJIET,Hyderabad,EEE,25781,120000,9.9,Yes,Yes,Yes,56327,Both,No,86301,On-campus,"Security, Laundry"
+VNR VJIET,Hyderabad,MECH,34926,100000,6.8,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Vasavi College,Hyderabad,CSE,10898,80000,3,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Vasavi College,Hyderabad,CSE(AI),11416,120000,7,Yes,Yes,Yes,83347,Non-AC,Yes,108329,On-campus,"WiFi, Security, Laundry"
+Vasavi College,Hyderabad,CSE(DS),19309,150000,6.8,Yes,No,Yes,66923,Both,No,77562,On-campus,"WiFi, Security, Laundry"
+Vasavi College,Hyderabad,IT,7171,100000,4.7,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Vasavi College,Hyderabad,ECE,21957,120000,8,Yes,Yes,Yes,65006,Non-AC,Yes,75559,On-campus,"WiFi, Security"
+Vasavi College,Hyderabad,EEE,29658,100000,7.3,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Vasavi College,Hyderabad,MECH,39137,140000,9.1,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+CVR College,Hyderabad,CSE,3271,120000,3.6,Yes,No,No,91283,AC,Yes,104875,Off-campus,"WiFi, Laundry"
+CVR College,Hyderabad,CSE(AI),9119,120000,7.3,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+CVR College,Hyderabad,CSE(DS),21506,140000,9.2,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+CVR College,Hyderabad,IT,12873,80000,8.6,Yes,Yes,Yes,75505,Both,Yes,90340,On-campus,"WiFi, Security, Laundry"
+CVR College,Hyderabad,ECE,11943,150000,8.2,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+CVR College,Hyderabad,EEE,26358,150000,9.2,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+CVR College,Hyderabad,MECH,49333,140000,4.4,Yes,Yes,Yes,96304,Both,Yes,113189,Off-campus,"WiFi, Laundry"
+GRIET,Hyderabad,CSE,11274,80000,9.8,Yes,No,Yes,92348,AC,Yes,118997,Off-campus,"Security, Laundry"
+GRIET,Hyderabad,CSE(AI),7522,100000,7.9,Yes,No,No,61363,AC,Yes,89390,Off-campus,"Security, Laundry"
+GRIET,Hyderabad,CSE(DS),7128,100000,3.8,Yes,Yes,Yes,69909,Non-AC,Yes,98547,On-campus,"WiFi, Security, Laundry"
+GRIET,Hyderabad,IT,22960,80000,5.9,Yes,No,Yes,104917,Both,Yes,130498,On-campus,"WiFi, Laundry"
+GRIET,Hyderabad,ECE,20602,100000,8.2,Yes,Yes,Yes,122656,Both,No,140133,On-campus,"WiFi, Laundry"
+GRIET,Hyderabad,EEE,30544,120000,7.1,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+GRIET,Hyderabad,MECH,41455,80000,3.6,Yes,Yes,No,79207,AC,No,105443,Off-campus,"WiFi, Security"
+MGIT,Hyderabad,CSE,3122,140000,3.6,Yes,No,No,149073,AC,No,162219,Off-campus,"WiFi, Security"
+MGIT,Hyderabad,CSE(AI),17528,80000,6.7,Yes,Yes,Yes,55106,AC,Yes,65957,Off-campus,"WiFi, Security"
+MGIT,Hyderabad,CSE(DS),6902,100000,9.9,Yes,No,Yes,119687,Non-AC,No,144077,Off-campus,"Security, Laundry"
+MGIT,Hyderabad,IT,24494,140000,5.9,Yes,No,Yes,86263,Non-AC,No,109927,On-campus,"WiFi, Laundry"
+MGIT,Hyderabad,ECE,19582,100000,9.9,Yes,Yes,No,94783,Non-AC,Yes,110528,Off-campus,"WiFi, Security"
+MGIT,Hyderabad,EEE,31282,120000,8.3,Yes,Yes,Yes,124111,Non-AC,Yes,134136,On-campus,"WiFi, Security, Laundry"
+MGIT,Hyderabad,MECH,32431,100000,8.8,Yes,No,Yes,60750,Non-AC,No,77529,Off-campus,"WiFi, Laundry"
+KMIT,Hyderabad,CSE,22187,140000,9.8,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+KMIT,Hyderabad,CSE(AI),12920,80000,9.3,Yes,No,Yes,52899,Both,No,64056,Off-campus,"WiFi, Security, Laundry"
+KMIT,Hyderabad,CSE(DS),21427,120000,4.9,Yes,Yes,No,103588,Both,Yes,121322,Off-campus,"WiFi, Security, Laundry"
+KMIT,Hyderabad,IT,22894,80000,9.3,Yes,Yes,Yes,100898,Both,No,128528,Off-campus,"WiFi, Security"
+KMIT,Hyderabad,ECE,29102,100000,6.3,Yes,No,No,134947,AC,Yes,155470,On-campus,"WiFi, Security, Laundry"
+KMIT,Hyderabad,EEE,29230,80000,8.6,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+KMIT,Hyderabad,MECH,35018,140000,8.4,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+BVRIT,Narsapur,CSE,21577,100000,4.3,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+BVRIT,Narsapur,CSE(AI),16363,80000,3.5,Yes,No,No,146453,Both,Yes,169487,On-campus,"Security, Laundry"
+BVRIT,Narsapur,CSE(DS),14373,80000,5.5,Yes,Yes,No,65862,Non-AC,No,95357,Off-campus,"WiFi, Security"
+BVRIT,Narsapur,IT,25143,140000,5.9,Yes,Yes,Yes,126377,AC,Yes,149712,On-campus,"WiFi, Laundry"
+BVRIT,Narsapur,ECE,22276,80000,7.7,Yes,Yes,Yes,86987,Non-AC,No,97340,Off-campus,"WiFi, Laundry"
+BVRIT,Narsapur,EEE,35898,150000,9.3,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+BVRIT,Narsapur,MECH,49437,150000,6.2,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+BVRIT Women,Hyderabad,CSE,16934,120000,4.3,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+BVRIT Women,Hyderabad,CSE(AI),21791,80000,7.3,Yes,Yes,Yes,114747,AC,Yes,136470,Off-campus,"WiFi, Laundry"
+BVRIT Women,Hyderabad,CSE(DS),15784,140000,5.2,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+BVRIT Women,Hyderabad,IT,22778,120000,8.7,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+BVRIT Women,Hyderabad,ECE,13440,120000,4.3,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+BVRIT Women,Hyderabad,EEE,18629,150000,9.2,Yes,No,Yes,130870,AC,Yes,157762,Off-campus,"WiFi, Laundry"
+BVRIT Women,Hyderabad,MECH,40897,120000,3.2,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Vardhaman College,Hyderabad,CSE,12761,150000,8.5,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Vardhaman College,Hyderabad,CSE(AI),19451,140000,4.1,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Vardhaman College,Hyderabad,CSE(DS),10673,140000,3.2,Yes,Yes,Yes,62104,Non-AC,No,79514,On-campus,"WiFi, Security, Laundry"
+Vardhaman College,Hyderabad,IT,10903,80000,9.7,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Vardhaman College,Hyderabad,ECE,20049,100000,4.1,Yes,No,Yes,85144,Non-AC,Yes,100066,Off-campus,"WiFi, Laundry"
+Vardhaman College,Hyderabad,EEE,22855,100000,8.3,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Vardhaman College,Hyderabad,MECH,33144,100000,4.1,Yes,No,No,127782,Both,Yes,145566,Off-campus,"WiFi, Security"
+SR University,Warangal,CSE,19706,80000,8.2,Yes,No,Yes,102370,Both,No,127732,Off-campus,"WiFi, Security"
+SR University,Warangal,CSE(AI),22001,150000,8.4,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+SR University,Warangal,CSE(DS),22796,100000,9.1,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+SR University,Warangal,IT,15845,80000,8.8,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+SR University,Warangal,ECE,23511,80000,7,Yes,No,Yes,78217,Non-AC,Yes,102699,Off-campus,"WiFi, Security, Laundry"
+SR University,Warangal,EEE,26048,140000,9.7,Yes,Yes,No,93433,Non-AC,No,113553,Off-campus,"Security, Laundry"
+SR University,Warangal,MECH,32701,140000,9.6,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+CMR Engineering College,Hyderabad,CSE,12399,150000,9.8,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+CMR Engineering College,Hyderabad,CSE(AI),22555,100000,9.6,Yes,No,Yes,114841,AC,Yes,139839,Off-campus,"Security, Laundry"
+CMR Engineering College,Hyderabad,CSE(DS),22082,100000,6.4,Yes,No,Yes,112903,AC,Yes,136992,Off-campus,"Security, Laundry"
+CMR Engineering College,Hyderabad,IT,10309,100000,8.4,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+CMR Engineering College,Hyderabad,ECE,15319,120000,8,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+CMR Engineering College,Hyderabad,EEE,19288,140000,3.6,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+CMR Engineering College,Hyderabad,MECH,43387,100000,3.3,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+CMR Technical Campus,Hyderabad,CSE,16098,120000,8.7,Yes,No,No,65519,Non-AC,Yes,78042,On-campus,"WiFi, Security, Laundry"
+CMR Technical Campus,Hyderabad,CSE(AI),5892,150000,4.7,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+CMR Technical Campus,Hyderabad,CSE(DS),15019,80000,9.1,Yes,No,Yes,69789,AC,Yes,80281,On-campus,"WiFi, Security"
+CMR Technical Campus,Hyderabad,IT,8827,150000,7.6,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+CMR Technical Campus,Hyderabad,ECE,18941,120000,6.1,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+CMR Technical Campus,Hyderabad,EEE,19539,150000,4.9,Yes,No,No,97867,Non-AC,No,112640,On-campus,"WiFi, Laundry"
+CMR Technical Campus,Hyderabad,MECH,36712,80000,6.5,Yes,No,Yes,54334,Both,No,82406,On-campus,"WiFi, Security"
+ACE Engineering College,Hyderabad,CSE,22438,150000,9.3,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+ACE Engineering College,Hyderabad,CSE(AI),4077,80000,7.4,Yes,No,Yes,66531,Non-AC,No,80719,On-campus,"WiFi, Security, Laundry"
+ACE Engineering College,Hyderabad,CSE(DS),15980,150000,5.6,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+ACE Engineering College,Hyderabad,IT,16009,80000,5.9,Yes,Yes,No,121299,Non-AC,Yes,143046,Off-campus,"Security, Laundry"
+ACE Engineering College,Hyderabad,ECE,13180,120000,7.4,Yes,Yes,No,81246,AC,Yes,98818,On-campus,"WiFi, Security"
+ACE Engineering College,Hyderabad,EEE,33715,80000,9.1,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+ACE Engineering College,Hyderabad,MECH,31449,80000,7.8,Yes,No,No,100603,Non-AC,Yes,129051,Off-campus,"WiFi, Security"
+Guru Nanak Institute,Hyderabad,CSE,17961,120000,3.8,Yes,No,No,102732,AC,No,115979,Off-campus,"WiFi, Security"
+Guru Nanak Institute,Hyderabad,CSE(AI),5619,120000,9.5,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Guru Nanak Institute,Hyderabad,CSE(DS),6249,80000,6.7,Yes,Yes,No,126653,AC,No,152778,Off-campus,"WiFi, Security"
+Guru Nanak Institute,Hyderabad,IT,23774,80000,9.3,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Guru Nanak Institute,Hyderabad,ECE,23065,140000,5.4,Yes,No,No,134702,Non-AC,Yes,160700,Off-campus,"WiFi, Security"
+Guru Nanak Institute,Hyderabad,EEE,31306,120000,7.7,Yes,Yes,No,94092,Both,Yes,117937,On-campus,"WiFi, Security, Laundry"
+Guru Nanak Institute,Hyderabad,MECH,33166,100000,9,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Aurora Engineering College,Hyderabad,CSE,15076,140000,4.2,Yes,Yes,No,84452,AC,Yes,108029,On-campus,"Security, Laundry"
+Aurora Engineering College,Hyderabad,CSE(AI),14214,100000,4.2,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Aurora Engineering College,Hyderabad,CSE(DS),11665,140000,6.9,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Aurora Engineering College,Hyderabad,IT,22679,140000,6,Yes,Yes,Yes,121816,AC,Yes,134214,On-campus,"WiFi, Security, Laundry"
+Aurora Engineering College,Hyderabad,ECE,13304,80000,4.8,Yes,Yes,No,75988,Non-AC,No,105458,On-campus,"WiFi, Security, Laundry"
+Aurora Engineering College,Hyderabad,EEE,19955,150000,6.7,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Aurora Engineering College,Hyderabad,MECH,41331,100000,9.3,Yes,Yes,Yes,124595,AC,No,149089,On-campus,"Security, Laundry"
+Sreenidhi Institute,Hyderabad,CSE,12450,100000,9.4,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Sreenidhi Institute,Hyderabad,CSE(AI),22370,120000,8.5,Yes,No,Yes,77922,AC,No,104514,Off-campus,"Security, Laundry"
+Sreenidhi Institute,Hyderabad,CSE(DS),11076,100000,7.6,Yes,Yes,Yes,103773,AC,Yes,124689,Off-campus,"Security, Laundry"
+Sreenidhi Institute,Hyderabad,IT,11867,80000,7.2,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Sreenidhi Institute,Hyderabad,ECE,24290,150000,5.4,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Sreenidhi Institute,Hyderabad,EEE,18661,100000,4,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Sreenidhi Institute,Hyderabad,MECH,45149,120000,5.5,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Geethanjali College,Hyderabad,CSE,12107,120000,5.9,Yes,No,Yes,112758,Non-AC,Yes,136061,On-campus,"WiFi, Security"
+Geethanjali College,Hyderabad,CSE(AI),13632,150000,4.6,Yes,Yes,No,54338,Non-AC,Yes,67450,On-campus,"Security, Laundry"
+Geethanjali College,Hyderabad,CSE(DS),12862,80000,7.3,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Geethanjali College,Hyderabad,IT,22887,100000,4.3,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Geethanjali College,Hyderabad,ECE,10300,140000,7,Yes,No,No,95704,Non-AC,Yes,107387,On-campus,"Security, Laundry"
+Geethanjali College,Hyderabad,EEE,29649,120000,8.2,Yes,Yes,No,118305,Non-AC,No,140668,On-campus,"WiFi, Security, Laundry"
+Geethanjali College,Hyderabad,MECH,40771,120000,8.3,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Matrusri Engineering College,Hyderabad,CSE,19757,100000,4.2,Yes,Yes,No,129433,AC,Yes,145144,On-campus,"WiFi, Security, Laundry"
+Matrusri Engineering College,Hyderabad,CSE(AI),21117,140000,7.9,Yes,Yes,No,128812,AC,No,155758,On-campus,"WiFi, Laundry"
+Matrusri Engineering College,Hyderabad,CSE(DS),17601,120000,6.5,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Matrusri Engineering College,Hyderabad,IT,12992,120000,4.4,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Matrusri Engineering College,Hyderabad,ECE,25676,140000,7.5,Yes,Yes,No,68982,Both,No,81442,Off-campus,"WiFi, Security, Laundry"
+Matrusri Engineering College,Hyderabad,EEE,24022,150000,5.7,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Matrusri Engineering College,Hyderabad,MECH,36370,140000,7.8,Yes,Yes,Yes,133440,Non-AC,No,155311,Off-campus,"Security, Laundry"
+Nalla Narasimha Reddy,Hyderabad,CSE,16303,140000,7.7,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Nalla Narasimha Reddy,Hyderabad,CSE(AI),12802,100000,9.4,Yes,Yes,No,137191,AC,No,156035,Off-campus,"WiFi, Security"
+Nalla Narasimha Reddy,Hyderabad,CSE(DS),5512,80000,7.3,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Nalla Narasimha Reddy,Hyderabad,IT,9845,150000,6.3,Yes,No,Yes,137837,AC,Yes,157481,On-campus,"WiFi, Laundry"
+Nalla Narasimha Reddy,Hyderabad,ECE,21111,120000,9.5,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Nalla Narasimha Reddy,Hyderabad,EEE,26490,80000,7.8,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Nalla Narasimha Reddy,Hyderabad,MECH,48145,150000,3.4,Yes,Yes,No,125505,AC,No,147210,On-campus,"Security, Laundry"
+Siddhartha Institute,Hyderabad,CSE,10520,100000,3,Yes,No,Yes,50226,AC,No,64664,Off-campus,"WiFi, Security"
+Siddhartha Institute,Hyderabad,CSE(AI),12318,80000,6.3,Yes,No,No,111286,Non-AC,No,138923,On-campus,"Security, Laundry"
+Siddhartha Institute,Hyderabad,CSE(DS),16672,140000,5.5,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Siddhartha Institute,Hyderabad,IT,22819,150000,6.1,Yes,Yes,Yes,133099,AC,Yes,161328,On-campus,"WiFi, Laundry"
+Siddhartha Institute,Hyderabad,ECE,15276,120000,5.3,Yes,No,No,50632,Both,No,77290,Off-campus,"WiFi, Laundry"
+Siddhartha Institute,Hyderabad,EEE,36551,80000,7,Yes,Yes,No,147202,Both,No,157726,Off-campus,"Security, Laundry"
+Siddhartha Institute,Hyderabad,MECH,33342,150000,3.9,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Holy Mary Institute,Hyderabad,CSE,10015,80000,9.9,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Holy Mary Institute,Hyderabad,CSE(AI),9743,100000,4.6,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Holy Mary Institute,Hyderabad,CSE(DS),11567,80000,4.1,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Holy Mary Institute,Hyderabad,IT,17043,80000,5.8,Yes,Yes,No,112499,Both,No,124838,Off-campus,"WiFi, Security, Laundry"
+Holy Mary Institute,Hyderabad,ECE,18602,140000,7.3,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Holy Mary Institute,Hyderabad,EEE,19133,100000,6.3,Yes,Yes,Yes,125525,Both,Yes,153410,Off-campus,"WiFi, Security"
+Holy Mary Institute,Hyderabad,MECH,31166,150000,6.5,Yes,No,Yes,141948,AC,Yes,153852,Off-campus,"WiFi, Security"
+Bhoj Reddy College,Hyderabad,CSE,6964,150000,10,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Bhoj Reddy College,Hyderabad,CSE(AI),7137,80000,7.8,Yes,Yes,No,92377,Both,No,111764,Off-campus,"WiFi, Security, Laundry"
+Bhoj Reddy College,Hyderabad,CSE(DS),15655,150000,6.1,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Bhoj Reddy College,Hyderabad,IT,11071,120000,5.2,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Bhoj Reddy College,Hyderabad,ECE,23481,100000,7.2,Yes,No,No,57557,AC,Yes,73248,Off-campus,"WiFi, Security"
+Bhoj Reddy College,Hyderabad,EEE,22928,120000,9.1,Yes,Yes,No,124729,Non-AC,No,147391,Off-campus,"WiFi, Security"
+Bhoj Reddy College,Hyderabad,MECH,42358,120000,8.3,Yes,No,Yes,103144,Both,No,114341,On-campus,"Security, Laundry"
+Joginpally B.R. Engineering,Hyderabad,CSE,22890,80000,6.7,Yes,No,No,112110,Non-AC,No,127422,On-campus,"Security, Laundry"
+Joginpally B.R. Engineering,Hyderabad,CSE(AI),6827,150000,6.8,Yes,Yes,No,60007,AC,Yes,78514,On-campus,"WiFi, Laundry"
+Joginpally B.R. Engineering,Hyderabad,CSE(DS),19588,80000,4.3,Yes,No,No,98367,Non-AC,Yes,124823,Off-campus,"WiFi, Security, Laundry"
+Joginpally B.R. Engineering,Hyderabad,IT,25897,80000,3.5,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Joginpally B.R. Engineering,Hyderabad,ECE,27611,80000,5.4,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Joginpally B.R. Engineering,Hyderabad,EEE,29174,120000,8.3,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Joginpally B.R. Engineering,Hyderabad,MECH,49721,80000,9.3,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Scient Institute,Hyderabad,CSE,5572,140000,3.7,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Scient Institute,Hyderabad,CSE(AI),21225,100000,6.3,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Scient Institute,Hyderabad,CSE(DS),17583,150000,6.1,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Scient Institute,Hyderabad,IT,9170,100000,6.1,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Scient Institute,Hyderabad,ECE,21644,140000,4.6,Yes,Yes,No,149287,AC,No,171617,On-campus,"WiFi, Laundry"
+Scient Institute,Hyderabad,EEE,29890,140000,3.2,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Scient Institute,Hyderabad,MECH,43073,100000,4,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Vignan Institute,Hyderabad,CSE,15410,150000,8.4,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Vignan Institute,Hyderabad,CSE(AI),18034,140000,4.6,Yes,No,No,97292,Non-AC,No,108977,Off-campus,"WiFi, Security, Laundry"
+Vignan Institute,Hyderabad,CSE(DS),21469,80000,6.7,Yes,Yes,Yes,130694,Both,No,153542,Off-campus,"WiFi, Security"
+Vignan Institute,Hyderabad,IT,25941,150000,4,Yes,Yes,Yes,115158,Non-AC,Yes,128016,Off-campus,"WiFi, Security"
+Vignan Institute,Hyderabad,ECE,28471,80000,9.6,Yes,No,Yes,61848,AC,No,74135,Off-campus,"WiFi, Laundry"
+Vignan Institute,Hyderabad,EEE,22657,150000,3.2,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Vignan Institute,Hyderabad,MECH,45272,140000,3.7,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Ellenki College,Hyderabad,CSE,10323,120000,4.3,Yes,No,No,121380,Both,Yes,146398,On-campus,"WiFi, Laundry"
+Ellenki College,Hyderabad,CSE(AI),8184,120000,9.2,Yes,No,Yes,118624,Both,Yes,131904,On-campus,"Security, Laundry"
+Ellenki College,Hyderabad,CSE(DS),6402,120000,4.4,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Ellenki College,Hyderabad,IT,9317,140000,4.5,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Ellenki College,Hyderabad,ECE,15196,140000,5.1,Yes,No,Yes,97168,AC,No,120626,Off-campus,"WiFi, Laundry"
+Ellenki College,Hyderabad,EEE,27237,120000,5.8,Yes,No,Yes,111800,Non-AC,Yes,124068,On-campus,"Security, Laundry"
+Ellenki College,Hyderabad,MECH,47025,150000,3.7,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Aizza College,Hyderabad,CSE,9415,80000,3.1,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Aizza College,Hyderabad,CSE(AI),11274,120000,7.7,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Aizza College,Hyderabad,CSE(DS),17729,100000,6.3,Yes,No,Yes,98275,Non-AC,Yes,112576,On-campus,"WiFi, Security, Laundry"
+Aizza College,Hyderabad,IT,19530,100000,4.5,Yes,Yes,No,71410,Both,Yes,85543,On-campus,"WiFi, Security"
+Aizza College,Hyderabad,ECE,22872,120000,9.4,Yes,Yes,No,137301,AC,Yes,152684,Off-campus,"WiFi, Security"
+Aizza College,Hyderabad,EEE,30782,80000,6.7,Yes,Yes,No,63880,Both,Yes,92714,Off-campus,"Security, Laundry"
+Aizza College,Hyderabad,MECH,41465,80000,4.3,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Balaji Institute,Hyderabad,CSE,16022,100000,6.8,Yes,No,No,63868,AC,No,85642,On-campus,"WiFi, Laundry"
+Balaji Institute,Hyderabad,CSE(AI),15337,140000,5.5,Yes,No,No,77993,Non-AC,Yes,107754,Off-campus,"Security, Laundry"
+Balaji Institute,Hyderabad,CSE(DS),10139,80000,3.3,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Balaji Institute,Hyderabad,IT,22144,80000,3.9,Yes,No,No,54629,AC,Yes,72927,On-campus,"WiFi, Security, Laundry"
+Balaji Institute,Hyderabad,ECE,27315,120000,3.7,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Balaji Institute,Hyderabad,EEE,22341,120000,5.4,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Balaji Institute,Hyderabad,MECH,41670,150000,7.1,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+MLR Institute,Hyderabad,CSE,6094,140000,8,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+MLR Institute,Hyderabad,CSE(AI),9023,140000,6.1,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+MLR Institute,Hyderabad,CSE(DS),9390,80000,8.4,Yes,Yes,No,103960,AC,No,126302,On-campus,"WiFi, Laundry"
+MLR Institute,Hyderabad,IT,14366,150000,5.6,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+MLR Institute,Hyderabad,ECE,11592,100000,9.1,Yes,No,No,63567,AC,No,82519,On-campus,"Security, Laundry"
+MLR Institute,Hyderabad,EEE,30527,120000,3.8,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+MLR Institute,Hyderabad,MECH,36203,140000,9.3,Yes,No,Yes,76990,Both,No,100762,Off-campus,"WiFi, Laundry"
+Indur Institute,Siddipet,CSE,12679,120000,8,Yes,Yes,Yes,144416,Non-AC,No,158586,Off-campus,"Security, Laundry"
+Indur Institute,Siddipet,CSE(AI),23221,80000,5.1,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Indur Institute,Siddipet,CSE(DS),14386,140000,9.7,Yes,No,Yes,133279,Both,Yes,161891,Off-campus,"WiFi, Laundry"
+Indur Institute,Siddipet,IT,11361,100000,5.5,Yes,No,Yes,78578,AC,Yes,107147,Off-campus,"WiFi, Security, Laundry"
+Indur Institute,Siddipet,ECE,24852,140000,5.6,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Indur Institute,Siddipet,EEE,37208,120000,5.3,Yes,Yes,No,138304,Non-AC,Yes,150657,On-campus,"Security, Laundry"
+Indur Institute,Siddipet,MECH,45591,150000,5.7,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Vaagdevi College,Warangal,CSE,13623,140000,7.7,Yes,No,Yes,148673,Both,Yes,174605,On-campus,"WiFi, Laundry"
+Vaagdevi College,Warangal,CSE(AI),21689,140000,7.1,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Vaagdevi College,Warangal,CSE(DS),23016,80000,7.9,Yes,Yes,No,68787,Both,No,89313,Off-campus,"Security, Laundry"
+Vaagdevi College,Warangal,IT,10843,100000,6,Yes,Yes,Yes,92726,Both,No,109325,Off-campus,"Security, Laundry"
+Vaagdevi College,Warangal,ECE,27022,80000,8.4,Yes,Yes,Yes,140779,Both,No,167525,Off-campus,"WiFi, Laundry"
+Vaagdevi College,Warangal,EEE,31395,120000,4.3,Yes,No,No,96317,AC,No,119375,Off-campus,"WiFi, Laundry"
+Vaagdevi College,Warangal,MECH,43681,120000,7.8,Yes,Yes,No,105982,Non-AC,No,116816,On-campus,"WiFi, Laundry"
+Kakatiya Institute,Warangal,CSE,3602,100000,3.8,Yes,Yes,Yes,70595,AC,No,100381,On-campus,"WiFi, Laundry"
+Kakatiya Institute,Warangal,CSE(AI),7753,80000,7.1,Yes,Yes,Yes,138304,AC,No,158579,Off-campus,"Security, Laundry"
+Kakatiya Institute,Warangal,CSE(DS),15969,100000,7,Yes,No,No,60478,Both,Yes,81375,Off-campus,"WiFi, Security"
+Kakatiya Institute,Warangal,IT,17979,80000,8,Yes,No,No,112765,AC,No,125239,On-campus,"WiFi, Security"
+Kakatiya Institute,Warangal,ECE,22434,80000,6.9,Yes,No,Yes,120410,Non-AC,Yes,145382,Off-campus,"WiFi, Security"
+Kakatiya Institute,Warangal,EEE,36604,100000,4,Yes,Yes,Yes,75401,Both,No,89354,On-campus,"WiFi, Security, Laundry"
+Kakatiya Institute,Warangal,MECH,36709,100000,6.7,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Swarna Bharathi Institute,Khammam,CSE,12295,150000,6.8,Yes,Yes,No,80515,Non-AC,No,102309,On-campus,"Security, Laundry"
+Swarna Bharathi Institute,Khammam,CSE(AI),5482,120000,3.8,Yes,Yes,Yes,102385,Both,No,117471,On-campus,"WiFi, Security"
+Swarna Bharathi Institute,Khammam,CSE(DS),12210,80000,6.7,Yes,Yes,No,56019,AC,No,76346,On-campus,"WiFi, Security, Laundry"
+Swarna Bharathi Institute,Khammam,IT,17107,140000,6.4,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Swarna Bharathi Institute,Khammam,ECE,10567,140000,7.1,Yes,Yes,Yes,149393,AC,Yes,177586,Off-campus,"WiFi, Security, Laundry"
+Swarna Bharathi Institute,Khammam,EEE,29379,100000,9,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Swarna Bharathi Institute,Khammam,MECH,42064,80000,8.1,Yes,No,No,111586,Both,No,133539,On-campus,"WiFi, Security"
+Jyothishmathi Institute,Karimnagar,CSE,18237,140000,7.3,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Jyothishmathi Institute,Karimnagar,CSE(AI),5546,80000,5.9,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Jyothishmathi Institute,Karimnagar,CSE(DS),9169,100000,8.6,Yes,Yes,No,97256,Both,Yes,107838,On-campus,"Security, Laundry"
+Jyothishmathi Institute,Karimnagar,IT,10384,100000,5.7,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Jyothishmathi Institute,Karimnagar,ECE,14453,120000,9.7,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Jyothishmathi Institute,Karimnagar,EEE,19159,80000,8,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Jyothishmathi Institute,Karimnagar,MECH,30804,80000,7,Yes,No,No,145422,AC,Yes,173671,Off-campus,"WiFi, Laundry"
+Nigama Engineering College,Nizamabad,CSE,7173,120000,9.4,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Nigama Engineering College,Nizamabad,CSE(AI),15742,150000,5.6,Yes,No,Yes,50829,Both,Yes,66029,Off-campus,"WiFi, Security"
+Nigama Engineering College,Nizamabad,CSE(DS),8801,140000,5.9,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Nigama Engineering College,Nizamabad,IT,25420,100000,7.2,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Nigama Engineering College,Nizamabad,ECE,21513,140000,4.5,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Nigama Engineering College,Nizamabad,EEE,28923,100000,7.8,Yes,No,Yes,82654,AC,Yes,112352,Off-campus,"WiFi, Security, Laundry"
+Nigama Engineering College,Nizamabad,MECH,45616,80000,9.5,Yes,Yes,No,123941,AC,Yes,137802,Off-campus,"Security, Laundry"
+Sreyas Institute,Hyderabad,CSE,3124,100000,6.9,Yes,No,Yes,102382,AC,Yes,128073,Off-campus,"Security, Laundry"
+Sreyas Institute,Hyderabad,CSE(AI),22806,140000,7.7,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Sreyas Institute,Hyderabad,CSE(DS),22084,80000,7,Yes,Yes,No,146141,Non-AC,No,157059,On-campus,"Security, Laundry"
+Sreyas Institute,Hyderabad,IT,20780,120000,5.3,Yes,No,No,89437,AC,Yes,117011,On-campus,"WiFi, Security, Laundry"
+Sreyas Institute,Hyderabad,ECE,12650,100000,10,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Sreyas Institute,Hyderabad,EEE,28526,150000,5.7,Yes,No,Yes,122996,Both,No,143997,Off-campus,"Security, Laundry"
+Sreyas Institute,Hyderabad,MECH,42038,120000,3.1,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+DRK College of Engineering,Hyderabad,CSE,18502,150000,4,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+DRK College of Engineering,Hyderabad,CSE(AI),15507,100000,9.9,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+DRK College of Engineering,Hyderabad,CSE(DS),9597,80000,4.1,Yes,Yes,No,110173,AC,Yes,129530,On-campus,"WiFi, Security"
+DRK College of Engineering,Hyderabad,IT,24091,120000,6.2,Yes,No,Yes,104301,AC,Yes,133260,Off-campus,"WiFi, Security, Laundry"
+DRK College of Engineering,Hyderabad,ECE,16989,140000,7.7,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+DRK College of Engineering,Hyderabad,EEE,30436,140000,3.8,Yes,Yes,Yes,139640,AC,No,154967,On-campus,"WiFi, Security"
+DRK College of Engineering,Hyderabad,MECH,30159,140000,8.7,Yes,No,No,130988,AC,No,158015,Off-campus,"WiFi, Laundry"
+Narsimha Reddy Engineering College,Hyderabad,CSE,21726,80000,4.5,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Narsimha Reddy Engineering College,Hyderabad,CSE(AI),18281,80000,4.7,Yes,Yes,Yes,125135,AC,Yes,137311,On-campus,"WiFi, Laundry"
+Narsimha Reddy Engineering College,Hyderabad,CSE(DS),23538,150000,8.2,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Narsimha Reddy Engineering College,Hyderabad,IT,14680,120000,4.4,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Narsimha Reddy Engineering College,Hyderabad,ECE,25184,100000,3.9,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Narsimha Reddy Engineering College,Hyderabad,EEE,20407,150000,7.6,Yes,Yes,Yes,101969,Both,Yes,114567,On-campus,"WiFi, Laundry"
+Narsimha Reddy Engineering College,Hyderabad,MECH,46595,120000,3.5,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Anurag University,Hyderabad,CSE,15696,100000,4.3,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Anurag University,Hyderabad,CSE(AI),10835,150000,4.3,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Anurag University,Hyderabad,CSE(DS),19323,100000,7.8,Yes,Yes,No,79341,Both,Yes,104958,Off-campus,"Security, Laundry"
+Anurag University,Hyderabad,IT,25746,140000,3.8,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Anurag University,Hyderabad,ECE,24503,100000,7.3,Yes,Yes,Yes,106885,Both,Yes,122879,Off-campus,"Security, Laundry"
+Anurag University,Hyderabad,EEE,22211,140000,9.9,Yes,Yes,No,139209,AC,Yes,165136,On-campus,"Security, Laundry"
+Anurag University,Hyderabad,MECH,48261,100000,6.6,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Malla Reddy Engineering College,Hyderabad,CSE,8025,140000,4.6,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Malla Reddy Engineering College,Hyderabad,CSE(AI),5256,140000,3.3,Yes,Yes,No,104484,AC,Yes,120650,Off-campus,"WiFi, Laundry"
+Malla Reddy Engineering College,Hyderabad,CSE(DS),15920,80000,7.7,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Malla Reddy Engineering College,Hyderabad,IT,22289,100000,9.3,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Malla Reddy Engineering College,Hyderabad,ECE,21001,140000,6.1,Yes,Yes,Yes,147210,Both,Yes,176282,On-campus,"Security, Laundry"
+Malla Reddy Engineering College,Hyderabad,EEE,19811,120000,7.3,Yes,Yes,No,61077,Both,No,86987,On-campus,"WiFi, Security"
+Malla Reddy Engineering College,Hyderabad,MECH,33107,120000,9.9,Yes,Yes,Yes,110332,Both,No,129451,Off-campus,"WiFi, Security"
+Malla Reddy Institute of Technology,Hyderabad,CSE,18714,80000,7.5,No,No,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Malla Reddy Institute of Technology,Hyderabad,CSE(AI),14186,120000,5.9,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Malla Reddy Institute of Technology,Hyderabad,CSE(DS),11651,150000,7.7,Yes,Yes,No,135985,AC,Yes,162376,Off-campus,"WiFi, Laundry"
+Malla Reddy Institute of Technology,Hyderabad,IT,17398,150000,8.4,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Malla Reddy Institute of Technology,Hyderabad,ECE,27142,100000,3.1,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Malla Reddy Institute of Technology,Hyderabad,EEE,20530,140000,6.2,Yes,Yes,No,134179,AC,Yes,158861,On-campus,"WiFi, Security, Laundry"
+Malla Reddy Institute of Technology,Hyderabad,MECH,41634,140000,7.5,Yes,Yes,Yes,121087,Non-AC,Yes,137987,On-campus,"WiFi, Security"
+Stanley College,Hyderabad,CSE,8150,150000,8.1,No,Yes,No,N/A,N/A,N/A,N/A,N/A,N/A
+Stanley College,Hyderabad,CSE(AI),19271,100000,6.2,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Stanley College,Hyderabad,CSE(DS),7492,140000,9.7,No,No,No,N/A,N/A,N/A,N/A,N/A,N/A
+Stanley College,Hyderabad,IT,26794,150000,7.4,Yes,No,Yes,131947,AC,No,155178,On-campus,"WiFi, Laundry"
+Stanley College,Hyderabad,ECE,27250,140000,9.6,Yes,Yes,No,133601,AC,No,162140,On-campus,"WiFi, Laundry"
+Stanley College,Hyderabad,EEE,36806,140000,6.2,No,Yes,Yes,N/A,N/A,N/A,N/A,N/A,N/A
+Stanley College,Hyderabad,MECH,46296,120000,5.4,Yes,Yes,No,103619,Both,Yes,133558,On-campus,"WiFi, Security"

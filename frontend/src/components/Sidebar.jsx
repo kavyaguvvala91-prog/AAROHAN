@@ -1,14 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BarChart3, Building2, GitCompareArrows, Sparkles, X } from 'lucide-react';
+import { BarChart3, Building2, GitCompareArrows, Heart, LogOut, Sparkles, UserCircle2, X } from 'lucide-react';
 
 const menuItems = [
-  { label: 'Dashboard', path: '/dashboard', icon: BarChart3 },
+  { label: 'Dashboard', path: '/', icon: BarChart3 },
   { label: 'Colleges', path: '/colleges', icon: Building2 },
+  { label: 'Favorites', path: '/favorites', icon: Heart },
   { label: 'Compare', path: '/compare', icon: GitCompareArrows },
 ];
 
-const SidebarContent = ({ onNavigate }) => (
+const SidebarContent = ({ onNavigate, user, onLogout }) => (
   <div className="flex h-full flex-col border-r border-slate-800 bg-slate-950 text-slate-200">
     <div className="flex items-center gap-3 border-b border-slate-800 px-5 py-6">
       <div className="rounded-xl bg-blue-600 p-2 text-white shadow-lg shadow-blue-900/40">
@@ -45,18 +46,36 @@ const SidebarContent = ({ onNavigate }) => (
     </nav>
 
     <div className="p-4">
+      <div className="mb-3 rounded-xl border border-slate-800 bg-slate-900 px-4 py-3">
+        <div className="flex items-center gap-3">
+          <UserCircle2 size={18} className="text-blue-400" />
+          <div>
+            <p className="text-sm font-semibold text-white">{user?.name || 'Student'}</p>
+            <p className="text-xs text-slate-400">{user?.email || 'Logged in'}</p>
+          </div>
+        </div>
+      </div>
+
       <div className="rounded-xl border border-emerald-900/60 bg-emerald-900/30 px-4 py-3 text-xs text-emerald-300">
         Live backend connected. AI matching is ready.
       </div>
+
+      <button
+        onClick={onLogout}
+        className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-sm font-medium text-slate-200 transition hover:bg-slate-800"
+      >
+        <LogOut size={16} />
+        Logout
+      </button>
     </div>
   </div>
 );
 
-const Sidebar = ({ mobileOpen, onClose }) => {
+const Sidebar = ({ mobileOpen, onClose, user, onLogout }) => {
   return (
     <>
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-72 lg:block">
-        <SidebarContent />
+        <SidebarContent user={user} onLogout={onLogout} />
       </aside>
 
       <AnimatePresence>
@@ -83,7 +102,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
               >
                 <X size={16} />
               </button>
-              <SidebarContent onNavigate={onClose} />
+              <SidebarContent onNavigate={onClose} user={user} onLogout={onLogout} />
             </motion.aside>
           </>
         )}

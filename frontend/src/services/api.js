@@ -1,8 +1,19 @@
 import axios from 'axios';
+import { getStoredToken } from '../context/AuthContext';
 
 const api = axios.create({
   baseURL: '/api',
   timeout: 10000,
+});
+
+api.interceptors.request.use((config) => {
+  const token = getStoredToken();
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
 });
 
 export const getApiErrorMessage = (error, fallback = 'Something went wrong. Please try again.') => {
@@ -12,24 +23,30 @@ export const getApiErrorMessage = (error, fallback = 'Something went wrong. Plea
   return fallback;
 };
 
-export const fetchColleges = async () => {
-  const { data } = await api.get('/colleges');
+const unwrap = async (request) => {
+  const { data } = await request;
   return data;
 };
 
-export const fetchRecommendations = async (payload) => {
-  const { data } = await api.post('/recommend', payload);
-  return data;
-};
+export const fetchColleges = (params = {}) => unwrap(api.get('/colleges', { params }));
+export const fetchRecommendations = (payload) => unwrap(api.post('/recommend', payload));
+export const fetchFilteredColleges = (params = {}) => unwrap(api.get('/colleges/filter', { params }));
+export const fetchComparedColleges = (colleges) => unwrap(api.post('/compare', { colleges }));
+export const registerUser = (payload) => unwrap(api.post('/auth/register', payload));
+export const loginUser = (payload) => unwrap(api.post('/auth/login', payload));
+export const fetchFavorites = () => unwrap(api.get('/favorites'));
+export const addFavorite = (collegeId) => unwrap(api.post('/favorites', { collegeId }));
+export const removeFavorite = (collegeId) => unwrap(api.delete(`/favorites/${collegeId}`));
+export const sendChatMessage = (payload) => unwrap(api.post('/chat', payload));
+export const fetchCollegeDetails = (name) =>
+  unwrap(api.get('/college-details', { params: { name } }));
+export const fetchNearbyPlaces = (name) =>
+  unwrap(api.get('/nearby', { params: { name } }));
 
-export const fetchFilteredColleges = async (params) => {
-  const { data } = await api.get('/colleges/filter', { params });
-  return data;
-};
-
-export const fetchComparedColleges = async (colleges) => {
-  const { data } = await api.post('/compare', { colleges });
-  return data;
-};
+// Backward-compatible aliases for older page variants that still exist in the repo.
+export const getAllColleges = fetchColleges;
+export const getRecommendations = fetchRecommendations;
+export const getFilteredColleges = fetchFilteredColleges;
+export const compareColleges = fetchComparedColleges;
 
 export default api;

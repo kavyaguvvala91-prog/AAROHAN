@@ -14,7 +14,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [bootLoading, setBootLoading] = useState(true);
   const [error, setError] = useState('');
-  const [formData, setFormData] = useState({ rank: '', budget: '', location: '', course: '' });
+  const [formData, setFormData] = useState({ rank: '', budget: '', location: '', course: '', category: '' });
 
   useEffect(() => {
     const loadOptions = async () => {
@@ -62,6 +62,7 @@ const Home = () => {
         budget: Number(formData.budget),
         location: formData.location,
         course: formData.course,
+        category: formData.category,
       });
 
       setResults(response.data || []);
@@ -85,7 +86,7 @@ const Home = () => {
           <h1 className="text-2xl font-bold">AI Recommendation Engine</h1>
         </div>
         <p className="mt-1 text-sm text-slate-600">
-          Find colleges by rank, budget, preferred location, and course.
+          Find colleges by rank, budget, preferred location, course, and caste category.
         </p>
 
         <RecommendationForm

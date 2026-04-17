@@ -1,0 +1,60 @@
+College Name,Location,District,Type,Cutoff OC,Cutoff BC,Cutoff SC,Cutoff ST,Tuition Fees (Yearly INR),Hostel Fees (Yearly INR),Hostel Boys,Hostel Girls,Seat Intake
+AIIMS Bibinagar,Bibinagar,Yadadri,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+Osmania Medical College,Hyderabad,Hyderabad,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+Gandhi Medical College,Secunderabad,Hyderabad,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+Kakatiya Medical College,Warangal,Warangal,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+ESIC Medical College,Hyderabad,Hyderabad,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+RIMS Adilabad,Adilabad,Adilabad,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Nizamabad,Nizamabad,Nizamabad,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Nalgonda,Nalgonda,Nalgonda,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Siddipet,Siddipet,Siddipet,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Suryapet,Suryapet,Suryapet,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Mahabubnagar,Mahabubnagar,Mahabubnagar,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Sangareddy,Sangareddy,Sangareddy,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Nagarkurnool,Nagarkurnool,Nagarkurnool,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Wanaparthy,Wanaparthy,Wanaparthy,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Ramagundam,Ramagundam,Peddapalli,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Mahabubabad,Mahabubabad,Mahabubabad,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Bhadradri Kothagudem,Kothagudem,Bhadradri,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Khammam,Khammam,Khammam,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Karimnagar,Karimnagar,Karimnagar,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Jagityal,Jagityal,Jagityal,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Vikarabad,Vikarabad,Vikarabad,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Mancherial,Mancherial,Mancherial,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Jangaon,Jangaon,Jangaon,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Rajanna Sircilla,Sircilla,Rajanna,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Kamareddy,Kamareddy,Kamareddy,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Jayashankar Bhupalpally,Bhupalpally,Jayashankar,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Nirmal,Nirmal,Nirmal,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+GMC Asifabad,Asifabad,Komaram Bheem,Government,600-680,550-620,450-550,400-500,50000,30000,Yes,Yes,100-250
+Apollo Institute of Medical Sciences,Hyderabad,Hyderabad,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Bhaskar Medical College,Yenkapally,Ranga Reddy,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Deccan College of Medical Sciences,Hyderabad,Hyderabad,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Kamineni Institute of Medical Sciences,Narketpally,Nalgonda,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Kamineni Academy of Medical Sciences,Hyderabad,Hyderabad,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Malla Reddy Institute of Medical Sciences,Hyderabad,Medchal,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Malla Reddy Medical College for Women,Hyderabad,Medchal,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Mamata Medical College,Khammam,Khammam,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Mamata Academy of Medical Sciences,Hyderabad,Medchal,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Mediciti Institute of Medical Sciences,Ghanpur,Medchal,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+MNR Medical College,Sangareddy,Sangareddy,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Mahavir Institute of Medical Sciences,Vikarabad,Vikarabad,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+SVS Medical College,Mahabubnagar,Mahabubnagar,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Shadan Institute of Medical Sciences,Hyderabad,Hyderabad,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+TRR Institute of Medical Sciences,Patancheru,Medak,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Prathima Institute of Medical Sciences,Karimnagar,Karimnagar,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Prathima Relief Institute,Warangal,Warangal,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Chalmeda Anand Rao Institute,Karimnagar,Karimnagar,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+RVM Institute of Medical Sciences,Siddipet,Siddipet,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Maheshwara Medical College,Patancheru,Medak,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Dr VRK Women's Medical College,Hyderabad,Medchal,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Ayaan Institute of Medical Sciences,Hyderabad,Ranga Reddy,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Surabhi Institute of Medical Sciences,Siddipet,Siddipet,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Patnam Mahender Reddy Medical College,Chevella,Ranga Reddy,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+CMR Institute of Medical Sciences,Hyderabad,Medchal,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Arundathi Institute of Medical Sciences,Hyderabad,Ranga Reddy,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Neelima Institute of Medical Sciences,Hyderabad,Ranga Reddy,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Father Colombo Institute of Medical Sciences,Warangal,Warangal,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Sri Lakshmi Narayana Institute,Hyderabad,Hyderabad,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Green Life Medical College,Hyderabad,Hyderabad,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
+Sri Sai Medical College,Vikarabad,Vikarabad,Private,450-550,400-500,300-400,250-350,1200000-2000000,150000-300000,Yes,Yes,150
