@@ -10,6 +10,12 @@ const toPositiveInteger = (value, fallback) => {
   return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
 };
 
+const toList = (value) =>
+  String(value || '')
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+
 const validateEnv = () => {
   const missing = requiredEnvVars.filter((key) => !getEnv(key));
 
@@ -24,6 +30,7 @@ const env = {
   mongoUri: getEnv('MONGO_URI'),
   jwtSecret: getEnv('JWT_SECRET'),
   frontendUrl: getEnv('FRONTEND_URL'),
+  frontendUrls: toList(getEnv('FRONTEND_URL')),
   geminiApiKey: getEnv('GEMINI_API_KEY'),
   geminiModel: getEnv('GEMINI_MODEL', 'gemini-2.5-flash'),
   placesPrimaryApiBaseUrl: getEnv(

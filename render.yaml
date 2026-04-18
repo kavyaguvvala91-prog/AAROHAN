@@ -1,0 +1,47 @@
+services:
+  - type: web
+    name: aarohan-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: PLACES_PRIMARY_API_BASE_URL
+        value: https://nominatim.openstreetmap.org
+      - key: PLACES_FALLBACK_API_BASE_URL
+        value: https://photon.komoot.io
+      - key: EXTERNAL_API_TIMEOUT_MS
+        value: 5000
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX
+        value: 200
+      - key: JSON_BODY_LIMIT
+        value: 1mb
+      - key: LOG_LEVEL
+        value: info
+
+  - type: static
+    name: aarohan-frontend
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false

@@ -22,7 +22,7 @@ NODE_ENV=development
 PORT=5000
 MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/college_discovery
 JWT_SECRET=replace_with_a_long_random_secret
-FRONTEND_URL=http://localhost:5173
+FRONTEND_URL=http://localhost:5173,https://your-frontend-domain.vercel.app
 GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-2.5-flash
 PLACES_PRIMARY_API_BASE_URL=https://nominatim.openstreetmap.org
@@ -35,6 +35,7 @@ LOG_LEVEL=info
 ```
 
 Use MongoDB Atlas in production for `MONGO_URI`.
+`FRONTEND_URL` accepts a comma-separated allowlist so you can support local development and deployed frontend domains at the same time.
 
 ## Local Development
 
@@ -59,6 +60,12 @@ npm start
 Recommended deployment targets:
 - Backend: Render or Railway
 - Database: MongoDB Atlas
+
+Suggested Render settings:
+- Root Directory: `backend`
+- Build Command: `npm install`
+- Start Command: `npm start`
+- Health Check Path: `/api/health`
 
 ## Main Endpoints
 - `GET /api/health`

@@ -50,3 +50,7 @@ For production, point `VITE_API_BASE_URL` or `REACT_APP_API_URL` to your deploye
 ```env
 VITE_API_BASE_URL=https://your-api.onrender.com/api
 ```
+
+This repo already includes SPA route fallback files for common static hosts:
+- `frontend/vercel.json` for Vercel
+- `frontend/public/_redirects` for Netlify

@@ -19,7 +19,7 @@ app.set('trust proxy', isProduction ? 1 : 0);
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || origin === env.frontendUrl) {
+      if (!origin || env.frontendUrls.includes(origin)) {
         return callback(null, true);
       }
 
