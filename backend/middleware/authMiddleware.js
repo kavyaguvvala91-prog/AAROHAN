@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { env } = require('../config/env');
 
 const authMiddleware = async (req, res, next) => {
   try {
@@ -13,13 +14,12 @@ const authMiddleware = async (req, res, next) => {
     }
 
     const token = authHeader.split(' ')[1];
-    const secretKey = process.env.JWT_SECRET;
+    const secretKey = env.jwtSecret;
 
     if (!secretKey) {
-      return res.status(500).json({
-        success: false,
-        message: 'JWT secret is not configured on the server.',
-      });
+      const error = new Error('JWT secret is not configured on the server.');
+      error.statusCode = 500;
+      return next(error);
     }
 
     const decoded = jwt.verify(token, secretKey);
@@ -35,10 +35,9 @@ const authMiddleware = async (req, res, next) => {
     req.user = user;
     return next();
   } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message: 'Invalid or expired token.',
-    });
+    error.statusCode = 401;
+    error.message = 'Invalid or expired token.';
+    return next(error);
   }
 };
 

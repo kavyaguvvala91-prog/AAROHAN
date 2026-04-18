@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
@@ -10,6 +10,7 @@ import Compare from './pages/Compare';
 import Dashboard from './pages/Dashboard';
 import Favorites from './pages/Favorites';
 import Login from './pages/Login';
+import NotFound from './pages/NotFound';
 import Register from './pages/Register';
 import StreamPage from './pages/StreamPage';
 import './index.css';
@@ -36,7 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               </Route>
             </Route>
 
-            <Route path="*" element={<Navigate to="/login" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </FavoritesProvider>

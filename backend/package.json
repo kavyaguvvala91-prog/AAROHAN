@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "start:backup": "node -r dotenv/config server.js dotenv_config_path=.env.backup",
+    "dev:backup": "nodemon -r dotenv/config server.js dotenv_config_path=.env.backup",
     "seed": "node seed/seedColleges.js"
   },
   "keywords": [
@@ -22,6 +24,9 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
+    "express-rate-limit": "^8.3.2",
+    "express-validator": "^7.3.2",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.13.2"
   },

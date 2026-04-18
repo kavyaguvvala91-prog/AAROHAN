@@ -3,12 +3,12 @@ import SearchBar from './SearchBar';
 
 const Navbar = ({ searchTerm, onSearchChange, onMenuToggle, user, onLogout }) => {
   return (
-    <header className="fixed right-0 top-0 z-20 w-full border-b border-slate-200 bg-white/90 backdrop-blur lg:pl-72">
+    <header className="fixed right-0 top-0 z-20 w-full border-b border-white/60 bg-white/70 backdrop-blur-xl lg:pl-72">
       <div className="flex h-20 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex w-full max-w-2xl items-center gap-3">
           <button
             onClick={onMenuToggle}
-            className="rounded-lg border border-slate-200 p-2 text-slate-600 transition hover:bg-slate-50 lg:hidden"
+            className="inline-flex rounded-2xl border border-slate-200/80 bg-white/80 p-2.5 text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700 lg:hidden"
           >
             <Menu size={18} />
           </button>
@@ -16,15 +16,17 @@ const Navbar = ({ searchTerm, onSearchChange, onMenuToggle, user, onLogout }) =>
         </div>
 
         <div className="ml-3 flex items-center gap-2">
-          <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600 shadow-sm">
-            <UserCircle2 className="text-blue-600" size={20} />
-            <span className="hidden sm:block">{user?.name || 'Student'}</span>
+          <div className="hidden items-center gap-3 rounded-full border border-white/70 bg-white/85 px-4 py-2.5 text-sm text-slate-600 shadow-sm sm:flex">
+            <div className="rounded-full bg-gradient-to-br from-blue-500 to-violet-500 p-2 text-white shadow-md shadow-blue-200/50">
+              <UserCircle2 size={18} />
+            </div>
+            <div className="leading-tight">
+              <p className="font-semibold text-slate-800">{user?.name || 'Student'}</p>
+              <p className="text-xs text-slate-500">Welcome back</p>
+            </div>
           </div>
 
-          <button
-            onClick={onLogout}
-            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
-          >
+          <button onClick={onLogout} className="app-button-secondary px-4 py-2.5">
             <LogOut size={16} />
             <span className="hidden sm:block">Logout</span>
           </button>

@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { env } = require('../config/env');
 
 const buildUserResponse = (user) => ({
   id: user._id,
@@ -11,20 +12,6 @@ const buildUserResponse = (user) => ({
 const registerUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
-
-    if (!name || !email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: 'name, email, and password are required.',
-      });
-    }
-
-    if (String(password).length < 6) {
-      return res.status(400).json({
-        success: false,
-        message: 'Password must be at least 6 characters long.',
-      });
-    }
 
     const normalizedEmail = String(email).trim().toLowerCase();
     const existingUser = await User.findOne({ email: normalizedEmail });
@@ -84,7 +71,7 @@ const loginUser = async (req, res, next) => {
       });
     }
 
-    const secretKey = process.env.JWT_SECRET;
+    const secretKey = env.jwtSecret;
 
     if (!secretKey) {
       return res.status(500).json({

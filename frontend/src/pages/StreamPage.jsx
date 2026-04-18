@@ -4,8 +4,17 @@ import { AlertTriangle, ArrowRight, Search, SlidersHorizontal } from 'lucide-rea
 import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import CollegeCard from '../components/CollegeCard';
 import Loader from '../components/Loader';
-import { fetchColleges, getApiErrorMessage } from '../services/api';
+import { CATEGORY_OPTIONS, DEFAULT_CATEGORY, isValidCategory } from '../constants/categories';
 import { getStreamBySlug } from '../constants/streams';
+import { fetchColleges, getApiErrorMessage } from '../services/api';
+
+const createDefaultFilters = () => ({
+  rank: '',
+  budget: '',
+  category: DEFAULT_CATEGORY,
+  location: '',
+  course: '',
+});
 
 const StreamPage = () => {
   const { type } = useParams();
@@ -18,20 +27,13 @@ const StreamPage = () => {
   const [selectedColleges, setSelectedColleges] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [formFilters, setFormFilters] = useState({
-    rank: '',
-    budget: '',
-    location: '',
-    course: '',
-  });
-  const [activeFilters, setActiveFilters] = useState({
-    rank: '',
-    budget: '',
-    location: '',
-    course: '',
-  });
+  const [formFilters, setFormFilters] = useState(() => createDefaultFilters());
+  const [activeFilters, setActiveFilters] = useState(() => createDefaultFilters());
   const hasActiveFilters = useMemo(
-    () => Object.values(activeFilters).some(Boolean),
+    () =>
+      Object.entries(activeFilters).some(([key, value]) =>
+        key === 'category' ? value !== DEFAULT_CATEGORY : Boolean(value)
+      ),
     [activeFilters]
   );
 
@@ -41,7 +43,7 @@ const StreamPage = () => {
       setError('');
 
       try {
-        const response = await fetchColleges({ type: stream.name });
+        const response = await fetchColleges({ type: stream.name, category: DEFAULT_CATEGORY });
         const data = response.data || [];
         setCatalogColleges(data);
         setColleges(data);
@@ -81,6 +83,7 @@ const StreamPage = () => {
           type: stream.name,
           ...(activeFilters.rank && { rank: Number(activeFilters.rank) }),
           ...(activeFilters.budget && { budget: Number(activeFilters.budget) }),
+          ...(activeFilters.category && { category: activeFilters.category }),
           ...(activeFilters.location && { location: activeFilters.location }),
           ...(activeFilters.course && { course: activeFilters.course }),
         });
@@ -93,9 +96,7 @@ const StreamPage = () => {
       }
     };
 
-    if (stream?.name) {
-      loadStreamColleges();
-    }
+    loadStreamColleges();
   }, [catalogColleges, hasActiveFilters, stream, activeFilters]);
 
   const locationOptions = useMemo(
@@ -107,14 +108,13 @@ const StreamPage = () => {
     [catalogColleges]
   );
 
-  const visibleColleges = useMemo(() => {
-    return colleges.filter((college) => {
-      const matchesSearch = searchTerm
-        ? college.name.toLowerCase().includes(searchTerm.toLowerCase())
-        : true;
-      return matchesSearch;
-    });
-  }, [colleges, searchTerm]);
+  const visibleColleges = useMemo(
+    () =>
+      colleges.filter((college) =>
+        searchTerm ? college.name.toLowerCase().includes(searchTerm.toLowerCase()) : true
+      ),
+    [colleges, searchTerm]
+  );
 
   const selectedIds = useMemo(
     () => new Set(selectedColleges.map((college) => college._id)),
@@ -128,18 +128,33 @@ const StreamPage = () => {
 
   const handleSearch = (event) => {
     event.preventDefault();
+
+    if (formFilters.rank && (!Number.isFinite(Number(formFilters.rank)) || Number(formFilters.rank) < 1)) {
+      setError('Please enter a valid rank greater than 0.');
+      return;
+    }
+
+    if (
+      formFilters.budget &&
+      (!Number.isFinite(Number(formFilters.budget)) || Number(formFilters.budget) < 0)
+    ) {
+      setError('Please enter a valid budget.');
+      return;
+    }
+
+    if (!isValidCategory(formFilters.category)) {
+      setError('Please select a valid category.');
+      return;
+    }
+
+    setError('');
     setActiveFilters(formFilters);
   };
 
   const clearFilters = () => {
-    const emptyFilters = {
-      rank: '',
-      budget: '',
-      location: '',
-      course: '',
-    };
-    setFormFilters(emptyFilters);
-    setActiveFilters(emptyFilters);
+    setFormFilters(createDefaultFilters());
+    setActiveFilters(createDefaultFilters());
+    setError('');
   };
 
   const toggleCollegeSelection = (college) => {
@@ -164,41 +179,73 @@ const StreamPage = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <motion.section
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-3xl border border-slate-200 bg-white p-6 shadow-md"
+        className="app-card p-6 sm:p-8"
       >
-        <h1 className="text-2xl font-bold text-slate-900">{stream?.name || 'Stream'} Colleges</h1>
-        <p className="mt-1 text-sm text-slate-600">
-          Select a stream-specific shortlist first, then compare only those colleges.
-        </p>
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-600">
+              {stream?.name || 'Stream'} Explorer
+            </p>
+            <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900">
+              {stream?.name || 'Stream'} Colleges
+            </h1>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+              Filter colleges by your rank, budget, category, location, and preferred course.
+            </p>
+          </div>
+          <div className="rounded-full border border-violet-100 bg-violet-50 px-4 py-2 text-sm font-semibold text-violet-700">
+            Dynamic shortlist
+          </div>
+        </div>
 
-        <form onSubmit={handleSearch} className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+        <form onSubmit={handleSearch} className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-6">
           <input
             type="number"
             name="rank"
+            min="1"
             value={formFilters.rank}
             onChange={handleFilterChange}
             placeholder="Your Rank"
-            className="rounded-xl border border-slate-300 bg-slate-50 px-3 py-3 text-sm shadow-sm transition focus:border-blue-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30"
+            className="app-input"
           />
 
           <input
             type="number"
             name="budget"
+            min="0"
             value={formFilters.budget}
             onChange={handleFilterChange}
             placeholder="Max Budget"
-            className="rounded-xl border border-slate-300 bg-slate-50 px-3 py-3 text-sm shadow-sm transition focus:border-blue-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30"
+            className="app-input"
           />
+
+          <div>
+            <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Select Your Category
+            </label>
+            <select
+              name="category"
+              value={formFilters.category}
+              onChange={handleFilterChange}
+              className="app-select"
+            >
+              {CATEGORY_OPTIONS.map((category) => (
+                <option key={category.value} value={category.value}>
+                  {category.label}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <select
             name="location"
             value={formFilters.location}
             onChange={handleFilterChange}
-            className="rounded-xl border border-slate-300 bg-slate-50 px-3 py-3 text-sm shadow-sm transition focus:border-blue-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30"
+            className="app-select"
           >
             <option value="">All Locations</option>
             {locationOptions.map((location) => (
@@ -212,7 +259,7 @@ const StreamPage = () => {
             name="course"
             value={formFilters.course}
             onChange={handleFilterChange}
-            className="rounded-xl border border-slate-300 bg-slate-50 px-3 py-3 text-sm shadow-sm transition focus:border-blue-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30"
+            className="app-select"
           >
             <option value="">All Courses</option>
             {courseOptions.map((course) => (
@@ -223,19 +270,12 @@ const StreamPage = () => {
           </select>
 
           <div className="flex gap-3 md:col-span-2 xl:col-span-1">
-            <button
-              type="submit"
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-xl"
-            >
+            <button type="submit" className="app-button-primary flex-1">
               <Search size={16} />
               Find Colleges
             </button>
 
-            <button
-              type="button"
-              onClick={clearFilters}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-50"
-            >
+            <button type="button" onClick={clearFilters} className="app-button-secondary px-4">
               <SlidersHorizontal size={16} />
               Reset
             </button>
@@ -246,14 +286,14 @@ const StreamPage = () => {
       <motion.section
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
+        className="app-card p-5"
       >
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-semibold text-slate-900">
               Selected: {selectedColleges.length} college{selectedColleges.length === 1 ? '' : 's'}
             </p>
-            <p className="text-sm text-slate-500">
+            <p className="mt-1 text-sm text-slate-500">
               Pick at least two colleges from {stream?.name || 'this stream'} to continue.
             </p>
           </div>
@@ -262,7 +302,7 @@ const StreamPage = () => {
             type="button"
             onClick={proceedToCompare}
             disabled={selectedColleges.length < 2}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+            className="app-button-primary"
           >
             Proceed to Compare
             <ArrowRight size={16} />
@@ -273,24 +313,27 @@ const StreamPage = () => {
       {loading && <Loader label={`Loading ${stream?.name || 'stream'} colleges...`} />}
 
       {error && (
-        <div className="flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div className="app-card flex items-center gap-2 border-rose-200 bg-rose-50/90 px-4 py-3 text-sm text-rose-700">
           <AlertTriangle size={16} />
           {error}
         </div>
       )}
 
       {!loading && !error && (
-        <section>
-          <p className="mb-4 text-xs text-slate-500">
-            Showing {visibleColleges.length} college(s)
-          </p>
+        <section className="space-y-4">
+          <div className="app-card flex items-center justify-between px-5 py-4">
+            <p className="text-sm font-semibold text-slate-800">Results</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+              Showing {visibleColleges.length} college(s)
+            </p>
+          </div>
 
           {!visibleColleges.length ? (
-            <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center text-sm text-slate-500">
+            <div className="app-card border-dashed px-8 py-12 text-center text-sm text-slate-500">
               No colleges found for the selected filters.
             </div>
           ) : (
-            <div className="grid gap-8 sm:grid-cols-2 2xl:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 2xl:grid-cols-3">
               {visibleColleges.map((college, index) => (
                 <motion.div
                   key={college._id}
@@ -304,6 +347,7 @@ const StreamPage = () => {
                     selected={selectedIds.has(college._id)}
                     onSelect={toggleCollegeSelection}
                     selectionLabel="Add to comparison"
+                    category={activeFilters.category || DEFAULT_CATEGORY}
                   />
                 </motion.div>
               ))}

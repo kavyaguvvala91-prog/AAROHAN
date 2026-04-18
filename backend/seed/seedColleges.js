@@ -35,6 +35,8 @@ const DATASET_CONFIGS = [
   },
 ];
 
+const CATEGORY_KEYS = ['OC', 'BC', 'SC', 'ST', 'EWS'];
+
 const splitCsvLine = (line = '') => {
   const values = [];
   let current = '';
@@ -120,6 +122,58 @@ const toLawCutoffNumber = (value) => {
   return null;
 };
 
+const buildEstimatedCutoffObject = (baseCutoff) => {
+  const parsedCutoff = toNumber(baseCutoff);
+
+  if (!parsedCutoff) {
+    return null;
+  }
+
+  return {
+    OC: parsedCutoff,
+    BC: Math.round(parsedCutoff * 1.15),
+    SC: Math.round(parsedCutoff * 1.55),
+    ST: Math.round(parsedCutoff * 1.75),
+    EWS: Math.round(parsedCutoff * 1.08),
+  };
+};
+
+const buildCategoryCutoffObject = ({ OC, BC, SC, ST, EWS }) => {
+  const cutoff = {
+    OC: toNumber(OC),
+    BC: toNumber(BC),
+    SC: toNumber(SC),
+    ST: toNumber(ST),
+    EWS: toNumber(EWS),
+  };
+
+  const fallbackBase =
+    cutoff.OC ||
+    cutoff.BC ||
+    cutoff.SC ||
+    cutoff.ST ||
+    cutoff.EWS ||
+    null;
+
+  if (!fallbackBase) {
+    return null;
+  }
+
+  return {
+    OC: cutoff.OC || fallbackBase,
+    BC: cutoff.BC || Math.round(fallbackBase * 1.15),
+    SC: cutoff.SC || Math.round(fallbackBase * 1.55),
+    ST: cutoff.ST || Math.round(fallbackBase * 1.75),
+    EWS: cutoff.EWS || cutoff.OC || Math.round(fallbackBase * 1.08),
+  };
+};
+
+const getHighestAvailableCutoff = (cutoff = {}) =>
+  Math.max(
+    ...CATEGORY_KEYS.map((category) => Number(cutoff?.[category]) || 0),
+    0
+  );
+
 const normalizeColumns = (columns = []) => columns.map((value) => String(value || '').trim().toLowerCase());
 
 const getColumnValue = (columns, headerMap, names = []) => {
@@ -133,6 +187,7 @@ const buildEngineeringCollegeRecord = ({ columns, headerMap, type }) => ({
   location: getColumnValue(columns, headerMap, ['location']),
   course: getColumnValue(columns, headerMap, ['course']),
   cutoffRank: toNumber(getColumnValue(columns, headerMap, ['cutoff rank'])),
+  cutoff: buildEstimatedCutoffObject(getColumnValue(columns, headerMap, ['cutoff rank'])),
   fees: toCurrencyAmount(getColumnValue(columns, headerMap, ['fee (inr)'])),
   avgPackage: toCurrencyAmount(getColumnValue(columns, headerMap, ['avg package (lpa)'])),
   type,
@@ -144,11 +199,13 @@ const buildPolytechnicCollegeRecord = ({ columns, headerMap, type }) => ({
     getColumnValue(columns, headerMap, ['district']) ||
     getColumnValue(columns, headerMap, ['area']),
   course: getColumnValue(columns, headerMap, ['branch']),
-  cutoffRank:
-    toNumber(getColumnValue(columns, headerMap, ['oc rank'])) ||
-    toNumber(getColumnValue(columns, headerMap, ['bc rank'])) ||
-    toNumber(getColumnValue(columns, headerMap, ['sc rank'])) ||
-    toNumber(getColumnValue(columns, headerMap, ['st rank'])),
+  cutoff: buildCategoryCutoffObject({
+    OC: getColumnValue(columns, headerMap, ['oc rank']),
+    BC: getColumnValue(columns, headerMap, ['bc rank']),
+    SC: getColumnValue(columns, headerMap, ['sc rank']),
+    ST: getColumnValue(columns, headerMap, ['st rank']),
+    EWS: getColumnValue(columns, headerMap, ['ews rank']),
+  }),
   fees: toCurrencyAmount(getColumnValue(columns, headerMap, ['tuition fee'])),
   avgPackage: 0,
   type,
@@ -160,11 +217,13 @@ const buildMedicalCollegeRecord = ({ columns, headerMap, type }) => ({
     getColumnValue(columns, headerMap, ['location']) ||
     getColumnValue(columns, headerMap, ['district']),
   course: 'MBBS',
-  cutoffRank:
-    toRangeBoundaryNumber(getColumnValue(columns, headerMap, ['cutoff oc'])) ||
-    toRangeBoundaryNumber(getColumnValue(columns, headerMap, ['cutoff bc'])) ||
-    toRangeBoundaryNumber(getColumnValue(columns, headerMap, ['cutoff sc'])) ||
-    toRangeBoundaryNumber(getColumnValue(columns, headerMap, ['cutoff st'])),
+  cutoff: buildCategoryCutoffObject({
+    OC: toRangeBoundaryNumber(getColumnValue(columns, headerMap, ['cutoff oc'])),
+    BC: toRangeBoundaryNumber(getColumnValue(columns, headerMap, ['cutoff bc'])),
+    SC: toRangeBoundaryNumber(getColumnValue(columns, headerMap, ['cutoff sc'])),
+    ST: toRangeBoundaryNumber(getColumnValue(columns, headerMap, ['cutoff st'])),
+    EWS: toRangeBoundaryNumber(getColumnValue(columns, headerMap, ['cutoff ews'])),
+  }),
   fees: toRangeBoundaryNumber(
     getColumnValue(columns, headerMap, ['tuition fees (yearly inr)']),
     'max'
@@ -179,11 +238,13 @@ const buildLawCollegeRecord = ({ columns, headerMap, type }) => ({
     getColumnValue(columns, headerMap, ['location']) ||
     getColumnValue(columns, headerMap, ['district']),
   course: getColumnValue(columns, headerMap, ['courses']),
-  cutoffRank:
-    toLawCutoffNumber(getColumnValue(columns, headerMap, ['cutoff oc'])) ||
-    toLawCutoffNumber(getColumnValue(columns, headerMap, ['cutoff bc'])) ||
-    toLawCutoffNumber(getColumnValue(columns, headerMap, ['cutoff sc'])) ||
-    toLawCutoffNumber(getColumnValue(columns, headerMap, ['cutoff st'])),
+  cutoff: buildCategoryCutoffObject({
+    OC: toLawCutoffNumber(getColumnValue(columns, headerMap, ['cutoff oc'])),
+    BC: toLawCutoffNumber(getColumnValue(columns, headerMap, ['cutoff bc'])),
+    SC: toLawCutoffNumber(getColumnValue(columns, headerMap, ['cutoff sc'])),
+    ST: toLawCutoffNumber(getColumnValue(columns, headerMap, ['cutoff st'])),
+    EWS: toLawCutoffNumber(getColumnValue(columns, headerMap, ['cutoff ews'])),
+  }),
   fees: toCurrencyAmount(getColumnValue(columns, headerMap, ['fees (yearly inr)'])),
   avgPackage: 0,
   type,
@@ -231,6 +292,7 @@ const buildCollegesFromCsv = ({ csvPath, type }) => {
       location,
       course,
       cutoffRank,
+      cutoff,
       fees,
       avgPackage,
     } = buildRecord({ columns, headerMap, type });
@@ -246,6 +308,13 @@ const buildCollegesFromCsv = ({ csvPath, type }) => {
       type,
       courses: [],
       cutoff_rank: 0,
+      cutoff: {
+        OC: null,
+        BC: null,
+        SC: null,
+        ST: null,
+        EWS: null,
+      },
       fees: 0,
       avg_package: 0,
     };
@@ -261,11 +330,18 @@ const buildCollegesFromCsv = ({ csvPath, type }) => {
       }
     });
 
-    const parsedCutoff = toNumber(cutoffRank);
+    const parsedCutoff = getHighestAvailableCutoff(cutoff) || toNumber(cutoffRank);
     const parsedFees = toCurrencyAmount(fees);
     const parsedAvgPackage = toCurrencyAmount(avgPackage);
 
     currentCollege.cutoff_rank = Math.max(currentCollege.cutoff_rank, parsedCutoff || 0);
+    CATEGORY_KEYS.forEach((category) => {
+      const categoryCutoff = Number(cutoff?.[category]) || 0;
+      currentCollege.cutoff[category] = Math.max(
+        Number(currentCollege.cutoff?.[category]) || 0,
+        categoryCutoff
+      ) || null;
+    });
     currentCollege.fees = Math.max(currentCollege.fees, parsedFees || 0);
     currentCollege.avg_package = Math.max(currentCollege.avg_package, parsedAvgPackage || 0);
 

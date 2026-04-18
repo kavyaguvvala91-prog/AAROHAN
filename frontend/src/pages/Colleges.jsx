@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, ArrowRight } from 'lucide-react';
+import { AlertTriangle, ArrowRight, Building2 } from 'lucide-react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import CollegeCard from '../components/CollegeCard';
 import Loader from '../components/Loader';
@@ -34,6 +34,7 @@ const Colleges = () => {
     if (!searchTerm) return colleges;
     return colleges.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
   }, [colleges, searchTerm]);
+
   const selectedIds = useMemo(
     () => new Set(selectedColleges.map((college) => college._id)),
     [selectedColleges]
@@ -60,25 +61,41 @@ const Colleges = () => {
   };
 
   return (
-    <div className="space-y-5">
-      <motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-md">
-        <h1 className="text-2xl font-bold text-slate-900">Colleges</h1>
-        <p className="text-sm text-slate-600">
-          Search colleges from the top bar and select at least two cards to compare them.
-        </p>
+    <div className="space-y-8">
+      <motion.section
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="app-card p-6 sm:p-8"
+      >
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div className="flex items-start gap-3">
+            <div className="rounded-2xl bg-gradient-to-br from-blue-500 to-violet-500 p-3 text-white shadow-lg shadow-blue-200/50">
+              <Building2 size={22} />
+            </div>
+            <div>
+              <h1 className="app-section-heading">College Catalog</h1>
+              <p className="app-section-copy mt-2">
+                Browse the full college collection, save favorites, and build a comparison shortlist.
+              </p>
+            </div>
+          </div>
+          <div className="rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
+            Rich card view
+          </div>
+        </div>
       </motion.section>
 
       <motion.section
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
+        className="app-card p-5"
       >
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-semibold text-slate-900">
               Selected: {selectedColleges.length} college{selectedColleges.length === 1 ? '' : 's'}
             </p>
-            <p className="text-sm text-slate-500">
+            <p className="mt-1 text-sm text-slate-500">
               Choose at least two colleges from this page to compare them.
             </p>
           </div>
@@ -87,7 +104,7 @@ const Colleges = () => {
             type="button"
             onClick={proceedToCompare}
             disabled={selectedColleges.length < 2}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+            className="app-button-primary"
           >
             Proceed to Compare
             <ArrowRight size={16} />
@@ -98,22 +115,27 @@ const Colleges = () => {
       {loading && <Loader label="Loading colleges..." />}
 
       {error && (
-        <div className="flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div className="app-card flex items-center gap-2 border-rose-200 bg-rose-50/90 px-4 py-3 text-sm text-rose-700">
           <AlertTriangle size={16} />
           {error}
         </div>
       )}
 
       {!loading && !error && (
-        <section>
-          <p className="mb-4 text-xs text-slate-500">Showing {visibleColleges.length} college(s)</p>
+        <section className="space-y-4">
+          <div className="app-card flex items-center justify-between px-5 py-4">
+            <p className="text-sm font-semibold text-slate-800">All colleges</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+              Showing {visibleColleges.length} college(s)
+            </p>
+          </div>
 
           {!visibleColleges.length ? (
-            <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center text-sm text-slate-500">
+            <div className="app-card border-dashed px-8 py-12 text-center text-sm text-slate-500">
               No colleges found. Try adjusting search or filters.
             </div>
           ) : (
-            <div className="grid gap-8 sm:grid-cols-2 2xl:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 2xl:grid-cols-3">
               {visibleColleges.map((college, index) => (
                 <motion.div
                   key={college._id}

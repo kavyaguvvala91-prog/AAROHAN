@@ -1,4 +1,13 @@
-const NOMINATIM_BASE_URL = 'https://nominatim.openstreetmap.org';
+const {
+  fetchJsonWithTimeout,
+  resolveFallbackApiData,
+  toPositiveInteger,
+} = require('./fallbackApiService');
+const { env } = require('../config/env');
+
+const PRIMARY_PLACES_API_BASE_URL = env.placesPrimaryApiBaseUrl;
+const FALLBACK_PLACES_API_BASE_URL = env.placesFallbackApiBaseUrl;
+const EXTERNAL_API_TIMEOUT_MS = toPositiveInteger(env.externalApiTimeoutMs, 5000);
 const REQUEST_HEADERS = {
   'User-Agent': 'AarohanCollegeExplorer/1.0 (college-details-demo)',
   Accept: 'application/json',
@@ -68,6 +77,36 @@ const setCachedValue = (key, value) => {
     timestamp: Date.now(),
   });
   return value;
+};
+
+const buildDisplayName = (parts = []) => parts.filter(Boolean).join(', ');
+
+const mapPhotonFeatureToPlace = (feature = {}) => {
+  const properties = feature.properties || {};
+  const coordinates = Array.isArray(feature.geometry?.coordinates)
+    ? feature.geometry.coordinates
+    : [];
+  const [longitude, latitude] = coordinates;
+  const name = properties.name || properties.street || properties.city || properties.state || 'Nearby place';
+  const displayName = buildDisplayName([
+    properties.name || properties.street,
+    properties.city,
+    properties.state,
+    properties.country,
+  ]);
+
+  return {
+    place_id: properties.osm_id || feature.id || displayName,
+    display_name: displayName || name,
+    name,
+    lat: latitude ?? null,
+    lon: longitude ?? null,
+  };
+};
+
+const normalizePhotonCollection = (payload) => {
+  const features = Array.isArray(payload?.features) ? payload.features : [];
+  return features.map(mapPhotonFeatureToPlace).filter((item) => item.display_name);
 };
 
 const createMapsEmbedUrl = ({ latitude, longitude }) => {
@@ -302,17 +341,36 @@ const searchLocation = async (query) => {
   const cached = getCachedValue(cacheKey);
   if (cached) return cached;
 
-  const url = `${NOMINATIM_BASE_URL}/search?format=jsonv2&limit=1&q=${encodeURIComponent(query)}`;
-  const response = await fetch(url, { headers: REQUEST_HEADERS });
-  const payload = await response.json();
+  const result = await resolveFallbackApiData({
+    primary: {
+      name: 'Primary places API',
+      request: async () => {
+        const payload = await fetchJsonWithTimeout(
+          `${PRIMARY_PLACES_API_BASE_URL}/search?format=jsonv2&limit=1&q=${encodeURIComponent(query)}`,
+          { headers: REQUEST_HEADERS },
+          EXTERNAL_API_TIMEOUT_MS
+        );
 
-  if (!response.ok) {
-    const error = new Error('OpenStreetMap geocoding request failed.');
-    error.statusCode = response.status;
-    throw error;
-  }
+        return Array.isArray(payload) ? payload[0] || null : null;
+      },
+    },
+    fallback: {
+      name: 'Fallback places API',
+      request: async () => {
+        const payload = await fetchJsonWithTimeout(
+          `${FALLBACK_PLACES_API_BASE_URL}/api/?limit=1&q=${encodeURIComponent(query)}`,
+          { headers: REQUEST_HEADERS },
+          EXTERNAL_API_TIMEOUT_MS
+        );
 
-  return setCachedValue(cacheKey, Array.isArray(payload) ? payload[0] || null : null);
+        const [firstResult] = normalizePhotonCollection(payload);
+        return firstResult || null;
+      },
+    },
+    isEmpty: (payload) => !payload,
+  });
+
+  return setCachedValue(cacheKey, result);
 };
 
 const calculateDistanceKm = (fromLat, fromLng, toLat, toLng) => {
@@ -362,17 +420,35 @@ const searchNearbyByText = async ({ query }) => {
   const cached = getCachedValue(cacheKey);
   if (cached) return cached;
 
-  const url = `${NOMINATIM_BASE_URL}/search?format=jsonv2&limit=6&q=${encodeURIComponent(query)}`;
-  const response = await fetch(url, { headers: REQUEST_HEADERS });
-  const payload = await response.json();
+  const result = await resolveFallbackApiData({
+    primary: {
+      name: 'Primary places API',
+      request: async () => {
+        const payload = await fetchJsonWithTimeout(
+          `${PRIMARY_PLACES_API_BASE_URL}/search?format=jsonv2&limit=6&q=${encodeURIComponent(query)}`,
+          { headers: REQUEST_HEADERS },
+          EXTERNAL_API_TIMEOUT_MS
+        );
 
-  if (!response.ok) {
-    const error = new Error('OpenStreetMap nearby search failed.');
-    error.statusCode = response.status;
-    throw error;
-  }
+        return Array.isArray(payload) ? payload : [];
+      },
+    },
+    fallback: {
+      name: 'Fallback places API',
+      request: async () => {
+        const payload = await fetchJsonWithTimeout(
+          `${FALLBACK_PLACES_API_BASE_URL}/api/?limit=6&q=${encodeURIComponent(query)}`,
+          { headers: REQUEST_HEADERS },
+          EXTERNAL_API_TIMEOUT_MS
+        );
 
-  return setCachedValue(cacheKey, Array.isArray(payload) ? payload : []);
+        return normalizePhotonCollection(payload);
+      },
+    },
+    isEmpty: (payload) => !Array.isArray(payload) || payload.length === 0,
+  });
+
+  return setCachedValue(cacheKey, result);
 };
 
 const searchNearbyByQueries = async (queries = []) => {
@@ -380,7 +456,10 @@ const searchNearbyByQueries = async (queries = []) => {
     queries.filter(Boolean).map((query) => searchNearbyByText({ query }))
   );
 
-  return results.flat();
+  return {
+    places: results.flatMap((result) => result.data || []),
+    source: results.some((result) => result.source === 'fallback') ? 'fallback' : 'primary',
+  };
 };
 
 const uniquePlaces = (places) => {
@@ -401,7 +480,10 @@ const getCollegeDetailsFromPlaces = async (college) => {
   const fallback = buildFallbackCollegeDetails(college);
 
   if (!college) {
-    return fallback;
+    return {
+      ...fallback,
+      source: 'fallback',
+    };
   }
 
   const safeCollege = college.toObject?.() || college;
@@ -414,23 +496,31 @@ const getCollegeDetailsFromPlaces = async (college) => {
 
   try {
     let result = null;
+    let source = 'primary';
+
     for (const query of queries) {
       // Stop at the first good match and rely on cache afterward.
       result = await searchLocation(query);
-      if (result) break;
+      if (result?.data) {
+        source = result.source || 'primary';
+        break;
+      }
     }
 
-    if (!result) {
-      return fallback;
+    if (!result?.data) {
+      return {
+        ...fallback,
+        source: 'fallback',
+      };
     }
 
-    const latitude = toNumber(result.lat);
-    const longitude = toNumber(result.lon);
+    const latitude = toNumber(result.data.lat);
+    const longitude = toNumber(result.data.lon);
 
     return {
       college: {
         ...safeCollege,
-        address: result.display_name || safeCollege.location,
+        address: result.data.display_name || safeCollege.location,
         rating: fallback.college.rating,
         coordinates: {
           latitude,
@@ -446,11 +536,13 @@ const getCollegeDetailsFromPlaces = async (college) => {
       images: [],
       nearby: fallback.nearby,
       reviews: fallback.reviews,
+      source,
     };
   } catch (error) {
     return {
       ...fallback,
-      placesError: error.message,
+      source: 'fallback',
+      placesError: error.details?.join(' | ') || error.message,
     };
   }
 };
@@ -459,14 +551,20 @@ const getNearbyPlacesForCollege = async (college, details) => {
   const fallback = buildGeneratedNearbyData(college);
 
   if (!college) {
-    return fallback;
+    return {
+      ...fallback,
+      source: 'fallback',
+    };
   }
 
   const latitude = details?.college?.coordinates?.latitude ?? null;
   const longitude = details?.college?.coordinates?.longitude ?? null;
 
   if (latitude === null || longitude === null) {
-    return fallback;
+    return {
+      ...fallback,
+      source: 'fallback',
+    };
   }
 
   const anchor = { latitude, longitude };
@@ -492,19 +590,24 @@ const getNearbyPlacesForCollege = async (college, details) => {
       ]),
     ]);
 
-    const mappedHostels = uniquePlaces(hostels.map((place) => mapNominatimPlace(place, anchor))).slice(0, 6);
-    const mappedRestaurants = uniquePlaces(restaurants.map((place) => mapNominatimPlace(place, anchor))).slice(0, 6);
-    const mappedTransport = uniquePlaces(transport.map((place) => mapNominatimPlace(place, anchor))).slice(0, 6);
+    const mappedHostels = uniquePlaces(hostels.places.map((place) => mapNominatimPlace(place, anchor))).slice(0, 6);
+    const mappedRestaurants = uniquePlaces(restaurants.places.map((place) => mapNominatimPlace(place, anchor))).slice(0, 6);
+    const mappedTransport = uniquePlaces(transport.places.map((place) => mapNominatimPlace(place, anchor))).slice(0, 6);
 
     return {
       hostels: withFallbackPlaces(mappedHostels, fallback.hostels),
       restaurants: withFallbackPlaces(mappedRestaurants, fallback.restaurants),
       transport: withFallbackPlaces(mappedTransport, fallback.transport),
+      source:
+        [hostels.source, restaurants.source, transport.source].some((item) => item === 'fallback')
+          ? 'fallback'
+          : 'primary',
     };
   } catch (error) {
     return {
       ...fallback,
-      placesError: error.message,
+      source: 'fallback',
+      placesError: error.details?.join(' | ') || error.message,
     };
   }
 };

@@ -1,6 +1,15 @@
 import { NavLink } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { BarChart3, Building2, GitCompareArrows, Heart, LogOut, Sparkles, UserCircle2, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import {
+  BarChart3,
+  Building2,
+  GitCompareArrows,
+  Heart,
+  LogOut,
+  Sparkles,
+  UserCircle2,
+  X,
+} from 'lucide-react';
 
 const menuItems = [
   { label: 'Dashboard', path: '/', icon: BarChart3 },
@@ -10,14 +19,16 @@ const menuItems = [
 ];
 
 const SidebarContent = ({ onNavigate, user, onLogout }) => (
-  <div className="flex h-full flex-col border-r border-slate-800 bg-slate-950 text-slate-200">
-    <div className="flex items-center gap-3 border-b border-slate-800 px-5 py-6">
-      <div className="rounded-xl bg-blue-600 p-2 text-white shadow-lg shadow-blue-900/40">
-        <Sparkles size={18} />
-      </div>
-      <div>
-        <p className="text-lg font-bold text-white">CollegeAI</p>
-        <p className="text-xs text-slate-400">Premium Discovery Suite</p>
+  <div className="flex h-full flex-col border-r border-white/20 bg-[radial-gradient(circle_at_top_left,_rgba(96,165,250,0.28),_transparent_24%),linear-gradient(180deg,#0f172a,#172554_42%,#4c1d95_100%)] text-slate-200">
+    <div className="border-b border-white/10 px-5 py-6">
+      <div className="flex items-center gap-3">
+        <div className="rounded-2xl bg-gradient-to-br from-blue-500 via-blue-400 to-violet-500 p-3 text-white shadow-lg shadow-blue-900/40">
+          <Sparkles size={20} />
+        </div>
+        <div>
+          <p className="text-lg font-bold tracking-tight text-white">Aarohan</p>
+          <p className="text-xs text-blue-100/80">Interactive decision platform</p>
+        </div>
       </div>
     </div>
 
@@ -31,39 +42,40 @@ const SidebarContent = ({ onNavigate, user, onLogout }) => (
             to={item.path}
             onClick={onNavigate}
             className={({ isActive }) =>
-              `group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
+              `group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-all ${
                 isActive
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-900/40'
-                  : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                  ? 'bg-white/16 text-white shadow-lg shadow-blue-950/20 ring-1 ring-white/20'
+                  : 'text-blue-100/80 hover:bg-white/10 hover:text-white'
               }`
             }
           >
-            <Icon size={18} />
+            <span className="rounded-xl bg-white/10 p-2 text-inherit transition group-hover:bg-white/15">
+              <Icon size={18} />
+            </span>
             {item.label}
           </NavLink>
         );
       })}
     </nav>
 
-    <div className="p-4">
-      <div className="mb-3 rounded-xl border border-slate-800 bg-slate-900 px-4 py-3">
+    <div className="space-y-3 p-4">
+      <div className="rounded-[1.5rem] border border-white/10 bg-white/10 p-4 backdrop-blur">
         <div className="flex items-center gap-3">
-          <UserCircle2 size={18} className="text-blue-400" />
+          <div className="rounded-full bg-gradient-to-br from-emerald-400 to-blue-400 p-2 text-slate-950">
+            <UserCircle2 size={18} />
+          </div>
           <div>
             <p className="text-sm font-semibold text-white">{user?.name || 'Student'}</p>
-            <p className="text-xs text-slate-400">{user?.email || 'Logged in'}</p>
+            <p className="text-xs text-blue-100/70">{user?.email || 'Logged in'}</p>
           </div>
         </div>
       </div>
 
-      <div className="rounded-xl border border-emerald-900/60 bg-emerald-900/30 px-4 py-3 text-xs text-emerald-300">
-        Live backend connected. AI matching is ready.
+      <div className="rounded-[1.5rem] border border-emerald-300/20 bg-emerald-400/10 px-4 py-3 text-xs leading-5 text-emerald-100">
+        Live recommendations, maps, cutoffs, and comparison insights are ready to explore.
       </div>
 
-      <button
-        onClick={onLogout}
-        className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-sm font-medium text-slate-200 transition hover:bg-slate-800"
-      >
+      <button onClick={onLogout} className="app-button-secondary w-full bg-white/85">
         <LogOut size={16} />
         Logout
       </button>
@@ -85,7 +97,7 @@ const Sidebar = ({ mobileOpen, onClose, user, onLogout }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-slate-900/50 lg:hidden"
+              className="fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-sm lg:hidden"
               onClick={onClose}
             />
 
@@ -98,7 +110,7 @@ const Sidebar = ({ mobileOpen, onClose, user, onLogout }) => {
             >
               <button
                 onClick={onClose}
-                className="absolute right-3 top-3 rounded-full border border-slate-700 bg-slate-900 p-1 text-slate-200 shadow"
+                className="absolute right-3 top-3 rounded-full border border-white/20 bg-slate-950/60 p-1.5 text-white shadow"
               >
                 <X size={16} />
               </button>

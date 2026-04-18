@@ -50,6 +50,7 @@ const getCollegeDetails = async (req, res, next) => {
       images: details.images,
       reviews: details.reviews || [],
       nearby,
+      source: details.source === 'fallback' || nearby.source === 'fallback' ? 'fallback' : 'primary',
       externalDataAvailable: details.college.externalDataAvailable,
       fallback: !details.college.externalDataAvailable,
     });
@@ -94,6 +95,7 @@ const getNearbyPlaces = async (req, res, next) => {
       images: details.images || [],
       reviews: details.reviews || fallback.reviews || [],
       nearby,
+      source: details.source === 'fallback' || nearby.source === 'fallback' ? 'fallback' : 'primary',
     });
   } catch (error) {
     return next(error);

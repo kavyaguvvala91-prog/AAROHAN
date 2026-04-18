@@ -11,7 +11,7 @@ const App = () => {
   const { user, logout } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gray-100 text-slate-800">
+    <div className="app-shell">
       <Sidebar
         mobileOpen={mobileSidebarOpen}
         onClose={() => setMobileSidebarOpen(false)}
@@ -28,7 +28,7 @@ const App = () => {
           onLogout={logout}
         />
 
-        <main className="px-4 pb-8 pt-24 sm:px-6 lg:px-8">
+        <main className="px-4 pb-10 pt-24 sm:px-6 lg:px-8">
           <Outlet context={{ searchTerm, setSearchTerm }} />
         </main>
       </div>

@@ -83,7 +83,7 @@ const Chatbot = () => {
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
-            className="w-[min(24rem,calc(100vw-2rem))] overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/15"
+            className="w-[min(24rem,calc(100vw-2rem))] overflow-hidden rounded-3xl border border-white/70 bg-white/90 shadow-2xl shadow-slate-900/15 backdrop-blur-xl"
           >
             <div className="bg-[radial-gradient(circle_at_top_left,_rgba(191,219,254,0.85),_transparent_35%),linear-gradient(135deg,#0f172a,#1d4ed8)] px-5 py-4 text-white">
               <div className="flex items-start justify-between gap-3">
@@ -108,7 +108,7 @@ const Chatbot = () => {
               </div>
             </div>
 
-            <div className="h-80 space-y-3 overflow-y-auto bg-slate-50 px-4 py-4">
+            <div className="h-80 space-y-3 overflow-y-auto bg-gradient-to-b from-slate-50 to-blue-50/50 px-4 py-4">
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -142,20 +142,20 @@ const Chatbot = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            <form onSubmit={handleSubmit} className="border-t border-slate-200 bg-white p-4">
+            <form onSubmit={handleSubmit} className="border-t border-slate-200/70 bg-white/90 p-4">
               <div className="flex items-end gap-3">
                 <textarea
                   rows="1"
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   placeholder="Type your question..."
-                  className="max-h-28 min-h-[52px] flex-1 resize-none rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-400/30"
+                  className="max-h-28 min-h-[52px] flex-1 resize-none rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-400/30"
                 />
 
                 <button
                   type="submit"
                   disabled={sending || !input.trim()}
-                  className="inline-flex h-[52px] w-[52px] items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-200 transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex h-[52px] w-[52px] items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg shadow-blue-200 transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <SendHorizonal size={18} />
                 </button>
@@ -170,7 +170,7 @@ const Chatbot = () => {
         whileHover={{ scale: 1.04, y: -2 }}
         whileTap={{ scale: 0.98 }}
         onClick={() => setIsOpen((prev) => !prev)}
-        className="inline-flex items-center gap-3 rounded-full bg-slate-950 px-5 py-4 text-sm font-semibold text-white shadow-2xl shadow-slate-900/30"
+        className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-slate-950 via-blue-700 to-violet-700 px-5 py-4 text-sm font-semibold text-white shadow-2xl shadow-slate-900/30"
       >
         <div className="rounded-full bg-blue-500/20 p-2 text-cyan-200">
           <MessageCircle size={18} />

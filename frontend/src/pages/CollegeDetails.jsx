@@ -20,16 +20,16 @@ const DetailCard = ({ label, value, icon: Icon, accentClass = 'text-blue-700 bg-
     <div className={`inline-flex rounded-xl p-2 ${accentClass}`}>
       <Icon size={18} />
     </div>
-    <p className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">{label}</p>
-    <p className="mt-2 text-lg font-semibold text-slate-900">{value || 'N/A'}</p>
+    <p className="mt-3 text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">{label}</p>
+    <p className="mt-2 text-xl font-semibold text-slate-900">{value || 'N/A'}</p>
   </div>
 );
 
 const NearbyCategory = ({ title, description, items, emptyMessage }) => (
   <section className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
     <div>
-      <h3 className="text-xl font-semibold text-slate-900">{title}</h3>
-      <p className="mt-1 text-sm text-slate-500">{description}</p>
+      <h3 className="text-2xl font-semibold text-slate-900">{title}</h3>
+      <p className="mt-1 text-base text-slate-500">{description}</p>
     </div>
 
     {!items?.length ? (
@@ -44,13 +44,13 @@ const NearbyCategory = ({ title, description, items, emptyMessage }) => (
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:-translate-y-1 hover:shadow-md"
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <h4 className="text-base font-semibold text-slate-900">{item.name}</h4>
-                <p className="mt-1 text-sm text-slate-500">{item.address || 'Address unavailable'}</p>
-              </div>
+        className="rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:-translate-y-1 hover:shadow-md"
+      >
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h4 className="text-lg font-semibold text-slate-900">{item.name}</h4>
+            <p className="mt-1 text-base text-slate-500">{item.address || 'Address unavailable'}</p>
+          </div>
               {item.rating !== null && item.rating !== undefined && (
                 <div className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
                   <Star size={12} />
@@ -59,7 +59,7 @@ const NearbyCategory = ({ title, description, items, emptyMessage }) => (
               )}
             </div>
 
-            <p className="mt-4 text-sm font-medium text-blue-700">{item.distance}</p>
+            <p className="mt-4 text-base font-medium text-blue-700">{item.distance}</p>
           </motion.article>
         ))}
       </div>
@@ -70,8 +70,8 @@ const NearbyCategory = ({ title, description, items, emptyMessage }) => (
 const ReviewSection = ({ reviews = [] }) => (
   <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
     <div>
-      <h2 className="text-2xl font-semibold text-slate-900">Student Reviews</h2>
-      <p className="mt-1 text-sm text-slate-500">Quick review-style insights to support shortlist comparison.</p>
+      <h2 className="text-3xl font-semibold text-slate-900">Student Reviews</h2>
+      <p className="mt-1 text-base text-slate-500">Quick review-style insights to support shortlist comparison.</p>
     </div>
 
     {!reviews.length ? (
@@ -90,8 +90,8 @@ const ReviewSection = ({ reviews = [] }) => (
           >
             <div className="flex items-start justify-between gap-3">
               <div>
-                <h3 className="text-base font-semibold text-slate-900">{review.title}</h3>
-                <p className="mt-1 text-sm text-slate-500">{review.author}</p>
+                <h3 className="text-lg font-semibold text-slate-900">{review.title}</h3>
+                <p className="mt-1 text-base text-slate-500">{review.author}</p>
               </div>
               <div className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
                 <Star size={12} />
@@ -99,7 +99,7 @@ const ReviewSection = ({ reviews = [] }) => (
               </div>
             </div>
 
-            <p className="mt-4 text-sm leading-6 text-slate-600">{review.comment}</p>
+            <p className="mt-4 text-base leading-7 text-slate-600">{review.comment}</p>
           </motion.article>
         ))}
       </div>
@@ -146,6 +146,16 @@ const CollegeDetails = () => {
 
   const college = details?.college;
   const reviews = details?.reviews || [];
+  const categoryCutoffEntries = useMemo(
+    () =>
+      Object.entries(college?.cutoff || {})
+        .filter(([, value]) => Number(value))
+        .map(([category, value]) => ({
+          category,
+          value: Number(value),
+        })),
+    [college?.cutoff]
+  );
   const streamSlug = useMemo(() => {
     const type = college?.type || '';
     return type ? type.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-') : 'engineering';
@@ -187,11 +197,11 @@ const CollegeDetails = () => {
         animate={{ opacity: 1, y: 0 }}
         className="overflow-hidden rounded-3xl bg-[radial-gradient(circle_at_top_left,_rgba(186,230,253,0.9),_transparent_36%),linear-gradient(135deg,#0f172a,#1d4ed8_58%,#0ea5e9)] p-8 text-white shadow-2xl"
       >
-        <p className="text-sm uppercase tracking-[0.24em] text-cyan-100">College Details</p>
+        <p className="text-base uppercase tracking-[0.24em] text-cyan-100">College Details</p>
         <div className="mt-3 flex flex-wrap items-start justify-between gap-6">
           <div>
             <h1 className="text-3xl font-bold sm:text-4xl">{college.name}</h1>
-            <p className="mt-3 flex items-center gap-2 text-sm text-blue-100 sm:text-base">
+            <p className="mt-3 flex items-center gap-2 text-base text-blue-100 sm:text-lg">
               <MapPin size={16} />
               {college.address || college.location}
             </p>
@@ -202,7 +212,7 @@ const CollegeDetails = () => {
               href={college.mapsUri}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/20"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-base font-medium text-white transition hover:bg-white/20"
             >
               Open in Maps
               <ExternalLink size={14} />
@@ -246,7 +256,7 @@ const CollegeDetails = () => {
           <div className="flex items-center justify-between gap-4">
             <div>
               <h2 className="text-2xl font-semibold text-slate-900">Map Location</h2>
-              <p className="mt-1 text-sm text-slate-500">Explore the campus location and surrounding area.</p>
+              <p className="mt-1 text-base text-slate-500">Explore the campus location and surrounding area.</p>
             </div>
           </div>
 
@@ -273,35 +283,50 @@ const CollegeDetails = () => {
           transition={{ delay: 0.05 }}
           className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
         >
-          <h2 className="text-2xl font-semibold text-slate-900">About This College</h2>
-          <p className="mt-2 text-sm leading-7 text-slate-600">
+          <h2 className="text-3xl font-semibold text-slate-900">About This College</h2>
+          <p className="mt-2 text-base leading-8 text-slate-600">
             Use this page to evaluate campus basics, map access, available place photos, and nearby
             facilities for demo-ready college exploration.
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Courses</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">Courses</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {(college.courses || []).length ? (
                 college.courses.map((course) => (
                   <span
                     key={course}
-                    className="rounded-full bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm"
+                    className="rounded-full bg-white px-3 py-1.5 text-base text-slate-700 shadow-sm"
                   >
                     {course}
                   </span>
                 ))
               ) : (
-                <p className="text-sm text-slate-500">No data available.</p>
+                <p className="text-base text-slate-500">No data available.</p>
               )}
             </div>
           </div>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Cutoff Rank</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">Cutoff Rank</p>
             <p className="mt-2 text-2xl font-bold text-slate-900">
               {college.cutoff_rank?.toLocaleString() || 'N/A'}
             </p>
+          </div>
+
+          <div className="mt-5 rounded-2xl bg-slate-50 p-4">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">Category-Wise Cutoffs</p>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {categoryCutoffEntries.length ? (
+                categoryCutoffEntries.map((entry) => (
+                  <div key={entry.category} className="rounded-xl bg-white px-3 py-2 text-base text-slate-700 shadow-sm">
+                    Cutoff for {entry.category} category: {entry.value.toLocaleString()}
+                  </div>
+                ))
+              ) : (
+                <p className="text-base text-slate-500">Category cutoff data is not available.</p>
+              )}
+            </div>
           </div>
         </motion.div>
       </section>
@@ -330,7 +355,7 @@ const CollegeDetails = () => {
       <ReviewSection reviews={reviews} />
 
       {details?.fallback && (
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-base text-amber-800">
           Live OpenStreetMap lookup is unavailable right now, so this page is showing fallback
           college information from your dataset.
         </div>
@@ -338,7 +363,7 @@ const CollegeDetails = () => {
 
       <Link
         to={`/stream/${streamSlug}`}
-        className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50"
+        className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-base font-medium text-slate-700 shadow-sm transition hover:bg-slate-50"
       >
         <TrainFront size={16} />
         Back to {college.type?.toLowerCase() || 'stream'} colleges

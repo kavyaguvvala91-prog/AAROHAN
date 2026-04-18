@@ -1,5 +1,36 @@
 const mongoose = require('mongoose');
 
+const categoryCutoffSchema = new mongoose.Schema(
+  {
+    OC: {
+      type: Number,
+      min: 1,
+      default: null,
+    },
+    BC: {
+      type: Number,
+      min: 1,
+      default: null,
+    },
+    SC: {
+      type: Number,
+      min: 1,
+      default: null,
+    },
+    ST: {
+      type: Number,
+      min: 1,
+      default: null,
+    },
+    EWS: {
+      type: Number,
+      min: 1,
+      default: null,
+    },
+  },
+  { _id: false }
+);
+
 const collegeSchema = new mongoose.Schema(
   {
     name: {
@@ -27,6 +58,17 @@ const collegeSchema = new mongoose.Schema(
       type: Number,
       required: true,
       min: 1,
+    },
+    cutoff: {
+      type: categoryCutoffSchema,
+      required: true,
+      default: () => ({
+        OC: null,
+        BC: null,
+        SC: null,
+        ST: null,
+        EWS: null,
+      }),
     },
     fees: {
       type: Number,

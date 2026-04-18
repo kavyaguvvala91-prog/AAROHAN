@@ -57,13 +57,13 @@ const ChartCard = ({ title, subtitle, children }) => (
     initial={{ opacity: 0, y: 12 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.35, ease: 'easeOut' }}
-    className="rounded-2xl border border-slate-200 bg-white p-4 shadow-md"
+    className="rounded-[1.5rem] border border-white/70 bg-white/85 p-5 shadow-md backdrop-blur"
   >
     <div className="mb-3">
       <h3 className="text-base font-semibold text-slate-900">{title}</h3>
       {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}
     </div>
-    <div className="h-[280px] w-full">{children}</div>
+    <div className="h-[260px] w-full">{children}</div>
   </motion.article>
 );
 
@@ -71,7 +71,7 @@ const SummaryCard = ({ label, value, helper, accentClass }) => (
   <motion.div
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
-    className={`rounded-2xl border bg-white p-4 shadow-md ${accentClass}`}
+    className={`rounded-[1.5rem] border bg-white/85 p-4 shadow-md backdrop-blur ${accentClass}`}
   >
     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{label}</p>
     <p className="mt-2 text-lg font-semibold text-slate-900">{value}</p>
@@ -86,7 +86,7 @@ const CustomTooltip = ({ active, payload, label, formatter = (value) => value })
   const title = point?.fullName || label;
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-lg">
+    <div className="rounded-2xl border border-white/70 bg-white/90 px-3 py-2 shadow-lg">
       <p className="text-sm font-semibold text-slate-900">{title}</p>
       {payload.map((entry) => (
         <p key={entry.dataKey} className="mt-1 text-sm text-slate-600">
@@ -281,7 +281,7 @@ const Compare = () => {
         <motion.section
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl border border-slate-200 bg-white p-6 shadow-md"
+          className="app-card p-6"
         >
           <h1 className="text-2xl font-bold text-slate-900">Compare Colleges</h1>
           <p className="mt-2 text-sm text-slate-600">
@@ -291,7 +291,7 @@ const Compare = () => {
           <button
             type="button"
             onClick={() => navigate('/')}
-            className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+            className="app-button-primary mt-4"
           >
             <ArrowLeft size={16} />
             Back to Streams
@@ -306,7 +306,7 @@ const Compare = () => {
       <motion.section
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl border border-slate-200 bg-white p-6 shadow-md"
+        className="app-card bg-gradient-to-br from-blue-50/80 via-white to-violet-50/80 p-6"
       >
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
@@ -321,7 +321,7 @@ const Compare = () => {
 
           <Link
             to={streamName ? `/stream/${encodeURIComponent(streamName.toLowerCase())}` : '/'}
-            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+            className="app-button-secondary"
           >
             <ArrowLeft size={16} />
             Change Selection
@@ -330,13 +330,13 @@ const Compare = () => {
       </motion.section>
 
       {error && (
-        <div className="flex items-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+        <div className="app-card flex items-center gap-2 border-amber-200 bg-amber-50/90 px-4 py-3 text-sm text-amber-800">
           <AlertTriangle size={16} />
           {error}
         </div>
       )}
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <section className="app-card p-5">
         <div className="mb-4">
           <h2 className="text-xl font-semibold text-slate-900">Comparison Table</h2>
           <p className="text-sm text-slate-500">A quick side-by-side view before reading the charts.</p>
@@ -406,7 +406,7 @@ const Compare = () => {
           <p className="text-sm text-slate-500">Smaller charts arranged for readability with two cards per row on larger screens.</p>
         </div>
 
-        <div className="grid gap-4 xl:grid-cols-2">
+        <div className="grid gap-5 xl:grid-cols-2">
           <ChartCard title="Fee Comparison" subtitle="Annual fees across the selected colleges.">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={feeChartData} margin={{ top: 8, right: 8, left: 0, bottom: 18 }}>
@@ -533,7 +533,10 @@ const Compare = () => {
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {result.map((college) => (
-          <div key={college._id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div
+            key={college._id}
+            className="rounded-[1.5rem] border border-white/70 bg-white/85 p-5 shadow-md backdrop-blur"
+          >
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h3 className="text-lg font-semibold text-slate-900">{college.name}</h3>

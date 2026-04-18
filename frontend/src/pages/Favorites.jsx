@@ -8,20 +8,20 @@ const Favorites = () => {
   const { favorites, loadingFavorites, favoritesError } = useFavorites();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <motion.section
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-3xl border border-slate-200 bg-white p-6 shadow-md"
+        className="app-card bg-gradient-to-br from-rose-50/90 via-white to-violet-50/80 p-6 sm:p-8"
       >
-        <div className="flex items-center gap-3">
-          <div className="rounded-2xl bg-rose-50 p-3 text-rose-500">
-            <Heart size={22} className="fill-current" />
+        <div className="flex items-center gap-4">
+          <div className="rounded-[1.25rem] bg-gradient-to-br from-rose-500 to-pink-500 p-3 text-white shadow-lg shadow-rose-200/50">
+            <Heart size={24} className="fill-current" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Favorites</h1>
-            <p className="mt-1 text-sm text-slate-600">
-              View and manage all colleges you have saved.
+            <h1 className="app-section-heading">Favorites</h1>
+            <p className="app-section-copy mt-2">
+              Your saved colleges stay highlighted here so you can revisit and compare them quickly.
             </p>
           </div>
         </div>
@@ -30,22 +30,27 @@ const Favorites = () => {
       {loadingFavorites && <Loader label="Loading favorite colleges..." />}
 
       {favoritesError && (
-        <div className="flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div className="app-card flex items-center gap-2 border-rose-200 bg-rose-50/90 px-4 py-3 text-sm text-rose-700">
           <AlertTriangle size={16} />
           {favoritesError}
         </div>
       )}
 
       {!loadingFavorites && !favoritesError && (
-        <section>
-          <p className="mb-4 text-xs text-slate-500">Showing {favorites.length} favorite college(s)</p>
+        <section className="space-y-4">
+          <div className="app-card flex items-center justify-between px-5 py-4">
+            <p className="text-sm font-semibold text-slate-800">Saved list</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+              Showing {favorites.length} favorite college(s)
+            </p>
+          </div>
 
           {!favorites.length ? (
-            <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center text-sm text-slate-500">
+            <div className="app-card border-dashed px-8 py-12 text-center text-sm text-slate-500">
               No favorite colleges yet. Tap the heart icon on any college card to save it here.
             </div>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
+            <div className="grid gap-5 sm:grid-cols-2 2xl:grid-cols-3">
               {favorites.map((college, index) => (
                 <motion.div
                   key={college._id}

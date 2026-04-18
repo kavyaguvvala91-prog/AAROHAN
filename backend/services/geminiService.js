@@ -1,5 +1,7 @@
+const { env } = require('../config/env');
+
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
-const DEFAULT_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+const DEFAULT_MODEL = env.geminiModel;
 
 const buildConversation = (history = [], message = '') => {
   const normalizedHistory = Array.isArray(history) ? history : [];
@@ -32,7 +34,7 @@ const extractText = (payload = {}) => {
 };
 
 const generateChatReply = async ({ message, history = [] }) => {
-  if (!process.env.GEMINI_API_KEY) {
+  if (!env.geminiApiKey) {
     const error = new Error('GEMINI_API_KEY is missing in backend environment variables.');
     error.statusCode = 500;
     throw error;
@@ -44,7 +46,7 @@ const generateChatReply = async ({ message, history = [] }) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-goog-api-key': process.env.GEMINI_API_KEY,
+        'x-goog-api-key': env.geminiApiKey,
       },
       body: JSON.stringify({
         systemInstruction: {
