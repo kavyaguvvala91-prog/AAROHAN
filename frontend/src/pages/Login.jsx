@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LogIn, Sparkles } from 'lucide-react';
 import { loginUser, getApiErrorMessage } from '../services/api';
-import { useAuth } from '../context/AuthContext';
+import { readAuthNotice, useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,6 +11,14 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const authNotice = readAuthNotice();
+
+    if (authNotice) {
+      setError(authNotice);
+    }
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated) {

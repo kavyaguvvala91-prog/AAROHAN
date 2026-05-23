@@ -16,14 +16,17 @@ Copy `.env.example` to `.env` and configure:
 ```env
 VITE_API_BASE_URL=/api
 VITE_FALLBACK_API_BASE_URL=http://localhost:5001/api
+VITE_API_TIMEOUT_MS=20000
 REACT_APP_API_URL=/api
 REACT_APP_FALLBACK_API_URL=http://localhost:5001/api
+REACT_APP_API_TIMEOUT_MS=20000
 VITE_PROXY_TARGET=http://localhost:5000
 ```
 
 Notes:
 - This project uses Vite, so `VITE_*` variables are the primary env format.
 - `REACT_APP_*` aliases are supported in the API client for compatibility with React-style deployment env names.
+- `VITE_API_TIMEOUT_MS` lets you raise the frontend request timeout for slow production cold starts.
 - Public read endpoints can retry against the fallback API automatically.
 
 ## Local Development

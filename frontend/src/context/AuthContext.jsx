@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 const AUTH_STORAGE_KEY = 'college_discovery_auth';
+const AUTH_NOTICE_STORAGE_KEY = 'college_discovery_auth_notice';
+export const AUTH_SESSION_EXPIRED_EVENT = 'college-auth-session-expired';
 
 const AuthContext = createContext(null);
 
@@ -13,6 +15,22 @@ const readStoredAuth = () => {
   }
 };
 
+const clearStoredAuth = () => {
+  try {
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+  } catch (error) {
+    // Ignore storage access failures and fall back to in-memory logout.
+  }
+};
+
+const writeAuthNotice = (message) => {
+  try {
+    sessionStorage.setItem(AUTH_NOTICE_STORAGE_KEY, message);
+  } catch (error) {
+    // Ignore storage access failures and proceed without a persisted notice.
+  }
+};
+
 export const AuthProvider = ({ children }) => {
   const [authState, setAuthState] = useState(() => readStoredAuth());
 
@@ -22,8 +40,24 @@ export const AuthProvider = ({ children }) => {
       return;
     }
 
-    localStorage.removeItem(AUTH_STORAGE_KEY);
+    clearStoredAuth();
   }, [authState]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    const handleSessionExpired = () => {
+      setAuthState({ token: '', user: null });
+    };
+
+    window.addEventListener(AUTH_SESSION_EXPIRED_EVENT, handleSessionExpired);
+
+    return () => {
+      window.removeEventListener(AUTH_SESSION_EXPIRED_EVENT, handleSessionExpired);
+    };
+  }, []);
 
   const login = ({ token, user }) => {
     setAuthState({ token, user });
@@ -60,4 +94,33 @@ export const useAuth = () => {
 export const getStoredToken = () => {
   const authData = readStoredAuth();
   return authData?.token || '';
+};
+
+export const expireAuthSession = (
+  message = 'Your session expired. Please log in again.'
+) => {
+  clearStoredAuth();
+  writeAuthNotice(message);
+
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(AUTH_SESSION_EXPIRED_EVENT));
+
+    if (window.location.pathname !== '/login') {
+      window.location.replace('/login');
+    }
+  }
+};
+
+export const readAuthNotice = () => {
+  try {
+    const message = sessionStorage.getItem(AUTH_NOTICE_STORAGE_KEY) || '';
+
+    if (message) {
+      sessionStorage.removeItem(AUTH_NOTICE_STORAGE_KEY);
+    }
+
+    return message;
+  } catch (error) {
+    return '';
+  }
 };

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getStoredToken } from '../context/AuthContext';
+import { expireAuthSession, getStoredToken } from '../context/AuthContext';
 
 const normalizeBaseUrl = (value, defaultValue = '') => {
   const baseUrl = String(value ?? defaultValue).trim();
@@ -15,6 +15,11 @@ const PRIMARY_API_BASE_URL = normalizeBaseUrl(
 const FALLBACK_API_BASE_URL = normalizeBaseUrl(
   import.meta.env.VITE_FALLBACK_API_BASE_URL || import.meta.env.REACT_APP_FALLBACK_API_URL
 );
+const API_TIMEOUT_MS = Number.parseInt(
+  import.meta.env.VITE_API_TIMEOUT_MS || import.meta.env.REACT_APP_API_TIMEOUT_MS || '20000',
+  10
+);
+const REQUEST_TIMEOUT_MS = Number.isFinite(API_TIMEOUT_MS) && API_TIMEOUT_MS > 0 ? API_TIMEOUT_MS : 20000;
 const API_STATUS_EVENT = 'college-api-status-change';
 
 let lastApiStatus = {
@@ -27,7 +32,7 @@ let lastApiStatus = {
 
 const api = axios.create({
   baseURL: PRIMARY_API_BASE_URL,
-  timeout: 10000,
+  timeout: REQUEST_TIMEOUT_MS,
 });
 
 const attachAuthHeader = (config = {}) => {
@@ -62,6 +67,42 @@ const publishApiStatus = (status) => {
       })
     );
   }
+};
+
+const sleep = (durationMs) => new Promise((resolve) => setTimeout(resolve, durationMs));
+
+const canRetrySameOrigin = (config = {}, error) => {
+  const method = String(config.method || 'get').toLowerCase();
+  const retryCount = Number(config.__retryCount || 0);
+
+  if (retryCount >= 1) {
+    return false;
+  }
+
+  if (!['get', 'head', 'options'].includes(method)) {
+    return false;
+  }
+
+  return error?.code === 'ECONNABORTED';
+};
+
+const isAuthenticatedRequest = (config = {}) => {
+  const authorizationHeader =
+    config?.headers?.Authorization || config?.headers?.authorization || '';
+
+  return String(authorizationHeader).startsWith('Bearer ');
+};
+
+const handleUnauthorizedResponse = (error) => {
+  if (error?.response?.status !== 401) {
+    return;
+  }
+
+  if (!isAuthenticatedRequest(error?.config)) {
+    return;
+  }
+
+  expireAuthSession();
 };
 
 const shouldRetryWithFallback = (error) => {
@@ -104,26 +145,41 @@ const requestWithFallback = async (config, { allowFallback = false } = {}) => {
 
     return response;
   } catch (error) {
+    if (canRetrySameOrigin(config, error)) {
+      await sleep(800);
+
+      return api.request({
+        ...config,
+        __retryCount: Number(config.__retryCount || 0) + 1,
+      });
+    }
+
     if (!allowFallback || !shouldRetryWithFallback(error)) {
+      handleUnauthorizedResponse(error);
       throw error;
     }
 
-    const response = await axios.request(
-      attachAuthHeader({
-        ...config,
-        baseURL: FALLBACK_API_BASE_URL,
-        timeout: config.timeout ?? api.defaults.timeout,
-      })
-    );
+    try {
+      const response = await axios.request(
+        attachAuthHeader({
+          ...config,
+          baseURL: FALLBACK_API_BASE_URL,
+          timeout: config.timeout ?? api.defaults.timeout,
+        })
+      );
 
-    publishApiStatus({
-      source: 'fallback',
-      baseURL: response.config?.baseURL || FALLBACK_API_BASE_URL,
-      failedBaseURL: error?.config?.baseURL || PRIMARY_API_BASE_URL,
-      path: response.config?.url || '',
-    });
+      publishApiStatus({
+        source: 'fallback',
+        baseURL: response.config?.baseURL || FALLBACK_API_BASE_URL,
+        failedBaseURL: error?.config?.baseURL || PRIMARY_API_BASE_URL,
+        path: response.config?.url || '',
+      });
 
-    return response;
+      return response;
+    } catch (fallbackError) {
+      handleUnauthorizedResponse(fallbackError);
+      throw fallbackError;
+    }
   }
 };
 
