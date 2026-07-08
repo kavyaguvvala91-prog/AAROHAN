@@ -57,7 +57,7 @@ const ChartCard = ({ title, subtitle, children }) => (
     initial={{ opacity: 0, y: 12 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.35, ease: 'easeOut' }}
-    className="rounded-[1.5rem] border border-white/70 bg-white/85 p-5 shadow-md backdrop-blur"
+    className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
   >
     <div className="mb-3">
       <h3 className="text-base font-semibold text-slate-900">{title}</h3>
@@ -71,7 +71,7 @@ const SummaryCard = ({ label, value, helper, accentClass }) => (
   <motion.div
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
-    className={`rounded-[1.5rem] border bg-white/85 p-4 shadow-md backdrop-blur ${accentClass}`}
+    className={`rounded-xl border bg-white p-4 shadow-sm ${accentClass}`}
   >
     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{label}</p>
     <p className="mt-2 text-lg font-semibold text-slate-900">{value}</p>
@@ -86,7 +86,7 @@ const CustomTooltip = ({ active, payload, label, formatter = (value) => value })
   const title = point?.fullName || label;
 
   return (
-    <div className="rounded-2xl border border-white/70 bg-white/90 px-3 py-2 shadow-lg">
+    <div className="rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm">
       <p className="text-sm font-semibold text-slate-900">{title}</p>
       {payload.map((entry) => (
         <p key={entry.dataKey} className="mt-1 text-sm text-slate-600">
@@ -306,16 +306,16 @@ const Compare = () => {
       <motion.section
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="app-card bg-gradient-to-br from-blue-50/80 via-white to-violet-50/80 p-6"
+        className="app-card p-6"
       >
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
               {streamName || 'Selected Stream'}
             </p>
-            <h1 className="mt-1 text-2xl font-bold text-slate-900">Compare Colleges</h1>
+            <h1 className="mt-1 text-2xl font-semibold text-slate-900">Compare Colleges</h1>
             <p className="mt-2 text-sm text-slate-600">
-              Reviewing {result.length} colleges from the same stream with a compact table, focused charts, and a quick final analysis.
+              Reviewing {result.length} colleges from the same stream with a compact table and charts.
             </p>
           </div>
 
@@ -330,7 +330,7 @@ const Compare = () => {
       </motion.section>
 
       {error && (
-        <div className="app-card flex items-center gap-2 border-amber-200 bg-amber-50/90 px-4 py-3 text-sm text-amber-800">
+        <div className="app-card flex items-center gap-2 border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
           <AlertTriangle size={16} />
           {error}
         </div>
@@ -535,14 +535,14 @@ const Compare = () => {
         {result.map((college) => (
           <div
             key={college._id}
-            className="rounded-[1.5rem] border border-white/70 bg-white/85 p-5 shadow-md backdrop-blur"
+            className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
           >
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h3 className="text-lg font-semibold text-slate-900">{college.name}</h3>
                 <p className="text-sm text-slate-500">{college.location}</p>
               </div>
-              <CheckCircle2 className="text-blue-600" size={18} />
+              <CheckCircle2 className="text-slate-500" size={18} />
             </div>
 
             <div className="mt-4 space-y-2 text-sm">

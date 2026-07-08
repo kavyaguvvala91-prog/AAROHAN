@@ -1,17 +1,16 @@
 const {
   fetchJsonWithTimeout,
-  resolveFallbackApiData,
   toPositiveInteger,
 } = require('./fallbackApiService');
 const { env } = require('../config/env');
 
-const PRIMARY_PLACES_API_BASE_URL = env.placesPrimaryApiBaseUrl;
-const FALLBACK_PLACES_API_BASE_URL = env.placesFallbackApiBaseUrl;
+const GOOGLE_MAPS_API_KEY = env.googleMapsApiKey;
+const GOOGLE_GEOCODING_API_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
+const GOOGLE_PLACES_SEARCH_API_URL = 'https://places.googleapis.com/v1/places:searchText';
+const GOOGLE_MAPS_SEARCH_BASE_URL = 'https://www.google.com/maps/search/?api=1&query=';
 const EXTERNAL_API_TIMEOUT_MS = toPositiveInteger(env.externalApiTimeoutMs, 5000);
-const REQUEST_HEADERS = {
-  'User-Agent': 'AarohanCollegeExplorer/1.0 (college-details-demo)',
-  Accept: 'application/json',
-};
+const GOOGLE_PLACES_FIELD_MASK =
+  'places.id,places.displayName,places.formattedAddress,places.location,places.rating,places.googleMapsUri';
 const CACHE_TTL_MS = 1000 * 60 * 60 * 12;
 const placesCache = new Map();
 const LOCATION_COORDINATES = {
@@ -79,48 +78,36 @@ const setCachedValue = (key, value) => {
   return value;
 };
 
-const buildDisplayName = (parts = []) => parts.filter(Boolean).join(', ');
+const hasGoogleMapsKey = Boolean(GOOGLE_MAPS_API_KEY);
 
-const mapPhotonFeatureToPlace = (feature = {}) => {
-  const properties = feature.properties || {};
-  const coordinates = Array.isArray(feature.geometry?.coordinates)
-    ? feature.geometry.coordinates
-    : [];
-  const [longitude, latitude] = coordinates;
-  const name = properties.name || properties.street || properties.city || properties.state || 'Nearby place';
-  const displayName = buildDisplayName([
-    properties.name || properties.street,
-    properties.city,
-    properties.state,
-    properties.country,
-  ]);
+const isValidCoordinatePair = (latitude, longitude) =>
+  latitude !== null &&
+  latitude !== undefined &&
+  longitude !== null &&
+  longitude !== undefined &&
+  !Number.isNaN(Number(latitude)) &&
+  !Number.isNaN(Number(longitude));
 
-  return {
-    place_id: properties.osm_id || feature.id || displayName,
-    display_name: displayName || name,
-    name,
-    lat: latitude ?? null,
-    lon: longitude ?? null,
-  };
+const buildGoogleMapsSearchUrl = (query) => {
+  const safeQuery = String(query || '').trim();
+  if (!safeQuery) return '';
+
+  return `${GOOGLE_MAPS_SEARCH_BASE_URL}${encodeURIComponent(safeQuery)}`;
 };
 
-const normalizePhotonCollection = (payload) => {
-  const features = Array.isArray(payload?.features) ? payload.features : [];
-  return features.map(mapPhotonFeatureToPlace).filter((item) => item.display_name);
-};
+const createMapsEmbedUrl = ({ query, latitude, longitude, zoom = 15 }) => {
+  const safeQuery = String(query || '').trim();
 
-const createMapsEmbedUrl = ({ latitude, longitude }) => {
-  if (latitude === null || longitude === null) return '';
+  // Use the public embed URL so the UI does not depend on the Maps Embed API key.
+  if (safeQuery) {
+    return `https://www.google.com/maps?q=${encodeURIComponent(safeQuery)}&output=embed`;
+  }
 
-  const lat = Number(latitude);
-  const lng = Number(longitude);
-  const delta = 0.02;
-  const left = lng - delta;
-  const right = lng + delta;
-  const top = lat + delta;
-  const bottom = lat - delta;
+  if (!isValidCoordinatePair(latitude, longitude)) {
+    return '';
+  }
 
-  return `https://www.openstreetmap.org/export/embed.html?bbox=${left},${bottom},${right},${top}&layer=mapnik&marker=${lat},${lng}`;
+  return `https://www.google.com/maps?q=${Number(latitude)},${Number(longitude)}&output=embed`;
 };
 
 const normalizeText = (value = '') => value.trim();
@@ -153,6 +140,115 @@ const hashString = (value = '') => {
 const toNumber = (value) => {
   const parsed = Number(value);
   return Number.isNaN(parsed) ? null : parsed;
+};
+
+const buildGooglePlacesHeaders = () => ({
+  'Content-Type': 'application/json',
+  'X-Goog-Api-Key': GOOGLE_MAPS_API_KEY,
+  'X-Goog-FieldMask': GOOGLE_PLACES_FIELD_MASK,
+});
+
+const normalizeGooglePlace = (place = {}) => {
+  const latitude = toNumber(place.location?.latitude);
+  const longitude = toNumber(place.location?.longitude);
+  const displayName = String(place.displayName?.text || '').trim();
+  const formattedAddress = String(place.formattedAddress || '').trim();
+  const query = [displayName, formattedAddress].filter(Boolean).join(', ');
+
+  return {
+    id: place.id || query || formattedAddress || displayName || 'google-place',
+    name: displayName || formattedAddress || 'Nearby place',
+    address: formattedAddress || displayName || 'Address unavailable',
+    latitude,
+    longitude,
+    googleMapsUri: place.googleMapsUri || buildGoogleMapsSearchUrl(query || formattedAddress || displayName),
+  };
+};
+
+const normalizeGeocodeResult = (result = {}, fallbackLabel = '') => {
+  const latitude = toNumber(result.geometry?.location?.lat);
+  const longitude = toNumber(result.geometry?.location?.lng);
+  const formattedAddress = String(result.formatted_address || '').trim();
+
+  return {
+    id: result.place_id || fallbackLabel || formattedAddress || 'google-geocode-result',
+    name: formattedAddress || fallbackLabel || 'Nearby place',
+    address: formattedAddress || fallbackLabel || 'Address unavailable',
+    latitude,
+    longitude,
+    googleMapsUri: buildGoogleMapsSearchUrl(formattedAddress || fallbackLabel),
+  };
+};
+
+const toLegacyLocationPayload = (place = {}) => ({
+  place_id: place.id,
+  display_name: place.address || place.name || 'Nearby place',
+  name: place.name || place.address || 'Nearby place',
+  lat: place.latitude,
+  lon: place.longitude,
+  googleMapsUri: place.googleMapsUri || buildGoogleMapsSearchUrl(place.address || place.name),
+});
+
+const searchGooglePlace = async (query, locationBias) => {
+  if (!hasGoogleMapsKey || !String(query || '').trim()) {
+    return null;
+  }
+
+  const payload = await fetchJsonWithTimeout(
+    GOOGLE_PLACES_SEARCH_API_URL,
+    {
+      method: 'POST',
+      headers: buildGooglePlacesHeaders(),
+      body: JSON.stringify({
+        textQuery: String(query).trim(),
+        pageSize: 1,
+        ...(locationBias ? { locationBias } : {}),
+      }),
+    },
+    EXTERNAL_API_TIMEOUT_MS
+  );
+
+  const [firstPlace] = Array.isArray(payload?.places) ? payload.places : [];
+  return firstPlace ? normalizeGooglePlace(firstPlace) : null;
+};
+
+const searchGooglePlaces = async (query, { pageSize = 6, locationBias } = {}) => {
+  if (!hasGoogleMapsKey || !String(query || '').trim()) {
+    return [];
+  }
+
+  const payload = await fetchJsonWithTimeout(
+    GOOGLE_PLACES_SEARCH_API_URL,
+    {
+      method: 'POST',
+      headers: buildGooglePlacesHeaders(),
+      body: JSON.stringify({
+        textQuery: String(query).trim(),
+        pageSize,
+        ...(locationBias ? { locationBias } : {}),
+      }),
+    },
+    EXTERNAL_API_TIMEOUT_MS
+  );
+
+  return Array.isArray(payload?.places) ? payload.places.map(normalizeGooglePlace) : [];
+};
+
+const geocodeGoogleLocation = async (query) => {
+  if (!hasGoogleMapsKey || !String(query || '').trim()) {
+    return null;
+  }
+
+  const payload = await fetchJsonWithTimeout(
+    `${GOOGLE_GEOCODING_API_URL}?address=${encodeURIComponent(query)}&key=${encodeURIComponent(
+      GOOGLE_MAPS_API_KEY
+    )}`,
+    { headers: { Accept: 'application/json' } },
+    EXTERNAL_API_TIMEOUT_MS
+  );
+
+  const [firstResult] = Array.isArray(payload?.results) ? payload.results : [];
+  return firstResult ? normalizeGeocodeResult(firstResult, query) : null;
 };
 
 const getFallbackCoordinates = (location = '') => {
@@ -314,6 +410,13 @@ const buildFallbackCollegeDetails = (college) => {
   const safeCollege = college ? college.toObject?.() || college : null;
   const fallbackCoordinates = getFallbackCoordinates(safeCollege?.location);
   const generatedReviews = buildGeneratedReviews(safeCollege);
+  const mapsQuery = [safeCollege?.name, safeCollege?.location].filter(Boolean).join(', ');
+  const mapsEmbedUrl = createMapsEmbedUrl({
+    query: mapsQuery,
+    latitude: fallbackCoordinates?.latitude ?? null,
+    longitude: fallbackCoordinates?.longitude ?? null,
+    zoom: 13,
+  });
 
   return {
     college: {
@@ -324,10 +427,8 @@ const buildFallbackCollegeDetails = (college) => {
         latitude: fallbackCoordinates?.latitude ?? null,
         longitude: fallbackCoordinates?.longitude ?? null,
       },
-      mapsEmbedUrl: fallbackCoordinates ? createMapsEmbedUrl(fallbackCoordinates) : '',
-      mapsUri: fallbackCoordinates
-        ? `https://www.openstreetmap.org/?mlat=${fallbackCoordinates.latitude}&mlon=${fallbackCoordinates.longitude}#map=13/${fallbackCoordinates.latitude}/${fallbackCoordinates.longitude}`
-        : '',
+      mapsEmbedUrl,
+      mapsUri: buildGoogleMapsSearchUrl(mapsQuery || safeCollege?.location || safeCollege?.name),
       externalDataAvailable: false,
     },
     images: [],
@@ -337,40 +438,67 @@ const buildFallbackCollegeDetails = (college) => {
 };
 
 const searchLocation = async (query) => {
-  const cacheKey = `geo:${query.toLowerCase()}`;
+  const safeQuery = String(query || '').trim();
+  if (!safeQuery) {
+    return null;
+  }
+
+  const cacheKey = `geo:${safeQuery.toLowerCase()}`;
   const cached = getCachedValue(cacheKey);
   if (cached) return cached;
 
-  const result = await resolveFallbackApiData({
-    primary: {
-      name: 'Primary places API',
-      request: async () => {
-        const payload = await fetchJsonWithTimeout(
-          `${PRIMARY_PLACES_API_BASE_URL}/search?format=jsonv2&limit=1&q=${encodeURIComponent(query)}`,
-          { headers: REQUEST_HEADERS },
-          EXTERNAL_API_TIMEOUT_MS
-        );
+  const locationBiasCoordinates = getFallbackCoordinates(safeQuery);
+  const locationBias = locationBiasCoordinates
+    ? {
+        circle: {
+          center: locationBiasCoordinates,
+          radius: 50000,
+        },
+      }
+    : undefined;
 
-        return Array.isArray(payload) ? payload[0] || null : null;
-      },
-    },
-    fallback: {
-      name: 'Fallback places API',
-      request: async () => {
-        const payload = await fetchJsonWithTimeout(
-          `${FALLBACK_PLACES_API_BASE_URL}/api/?limit=1&q=${encodeURIComponent(query)}`,
-          { headers: REQUEST_HEADERS },
-          EXTERNAL_API_TIMEOUT_MS
-        );
+  try {
+    const place = await searchGooglePlace(safeQuery, locationBias);
 
-        const [firstResult] = normalizePhotonCollection(payload);
-        return firstResult || null;
-      },
-    },
-    isEmpty: (payload) => !payload,
-  });
+    if (place) {
+      return setCachedValue(cacheKey, {
+        data: toLegacyLocationPayload(place),
+        source: 'primary',
+      });
+    }
+  } catch (error) {
+    void error;
+  }
 
-  return setCachedValue(cacheKey, result);
+  try {
+    const geocoded = await geocodeGoogleLocation(safeQuery);
+
+    if (geocoded) {
+      return setCachedValue(cacheKey, {
+        data: toLegacyLocationPayload(geocoded),
+        source: 'primary',
+      });
+    }
+  } catch (error) {
+    void error;
+  }
+
+  const fallbackCoordinates = getFallbackCoordinates(safeQuery);
+  const fallbackResult = fallbackCoordinates
+    ? {
+        data: {
+          place_id: safeQuery,
+          display_name: safeQuery,
+          name: safeQuery,
+          lat: fallbackCoordinates.latitude,
+          lon: fallbackCoordinates.longitude,
+          googleMapsUri: buildGoogleMapsSearchUrl(safeQuery),
+        },
+        source: 'fallback',
+      }
+    : null;
+
+  return setCachedValue(cacheKey, fallbackResult);
 };
 
 const calculateDistanceKm = (fromLat, fromLng, toLat, toLng) => {
@@ -387,9 +515,9 @@ const calculateDistanceKm = (fromLat, fromLng, toLat, toLng) => {
   return 2 * earthRadiusKm * Math.asin(Math.sqrt(a));
 };
 
-const mapNominatimPlace = (place, anchor) => {
-  const latitude = toNumber(place.lat);
-  const longitude = toNumber(place.lon);
+const mapGooglePlace = (place, anchor) => {
+  const latitude = toNumber(place.latitude);
+  const longitude = toNumber(place.longitude);
 
   const distanceKm =
     latitude !== null &&
@@ -399,66 +527,71 @@ const mapNominatimPlace = (place, anchor) => {
       ? calculateDistanceKm(anchor.latitude, anchor.longitude, latitude, longitude)
       : null;
 
-  const label = place.display_name || place.name || 'Nearby place';
-  const [name, ...rest] = label.split(',');
+  const label = place.address || place.name || 'Nearby place';
+  const [name, ...rest] = String(label).split(',');
+  const mapsUri = place.googleMapsUri || buildGoogleMapsSearchUrl(label);
 
   return {
-    id: `${place.place_id || label}`,
+    id: `${place.id || place.place_id || label}`,
     name: name?.trim() || 'Nearby place',
     address: rest.join(',').trim() || label,
     rating: null,
     distance: distanceKm !== null ? `${distanceKm.toFixed(1)} km away` : 'Distance unavailable',
-    mapsUri:
-      latitude !== null && longitude !== null
-        ? `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=16/${latitude}/${longitude}`
-        : '',
+    mapsUri,
   };
 };
 
-const searchNearbyByText = async ({ query }) => {
-  const cacheKey = `nearby:${query.toLowerCase()}`;
+const searchNearbyByText = async ({ query, anchor }) => {
+  const safeQuery = String(query || '').trim();
+  if (!safeQuery) {
+    return {
+      data: [],
+      source: 'fallback',
+    };
+  }
+
+  const cacheKey = `nearby:${safeQuery.toLowerCase()}:${anchor?.latitude ?? ''}:${anchor?.longitude ?? ''}`;
   const cached = getCachedValue(cacheKey);
   if (cached) return cached;
 
-  const result = await resolveFallbackApiData({
-    primary: {
-      name: 'Primary places API',
-      request: async () => {
-        const payload = await fetchJsonWithTimeout(
-          `${PRIMARY_PLACES_API_BASE_URL}/search?format=jsonv2&limit=6&q=${encodeURIComponent(query)}`,
-          { headers: REQUEST_HEADERS },
-          EXTERNAL_API_TIMEOUT_MS
-        );
+  try {
+    const locationBias = anchor
+      ? {
+          circle: {
+            center: anchor,
+            radius: 3500,
+          },
+        }
+      : undefined;
 
-        return Array.isArray(payload) ? payload : [];
-      },
-    },
-    fallback: {
-      name: 'Fallback places API',
-      request: async () => {
-        const payload = await fetchJsonWithTimeout(
-          `${FALLBACK_PLACES_API_BASE_URL}/api/?limit=6&q=${encodeURIComponent(query)}`,
-          { headers: REQUEST_HEADERS },
-          EXTERNAL_API_TIMEOUT_MS
-        );
+    const places = await searchGooglePlaces(safeQuery, {
+      pageSize: 8,
+      locationBias,
+    });
 
-        return normalizePhotonCollection(payload);
-      },
-    },
-    isEmpty: (payload) => !Array.isArray(payload) || payload.length === 0,
-  });
+    const result = {
+      data: places.map((place) => mapGooglePlace(place, anchor || { latitude: null, longitude: null })),
+      source: places.length ? 'primary' : 'fallback',
+    };
 
-  return setCachedValue(cacheKey, result);
+    return setCachedValue(cacheKey, result);
+  } catch (error) {
+    return setCachedValue(cacheKey, {
+      data: [],
+      source: 'fallback',
+      error: error.message,
+    });
+  }
 };
 
-const searchNearbyByQueries = async (queries = []) => {
+const searchNearbyByQueries = async (queries = [], anchor = null) => {
   const results = await Promise.all(
-    queries.filter(Boolean).map((query) => searchNearbyByText({ query }))
+    queries.filter(Boolean).map((query) => searchNearbyByText({ query, anchor }))
   );
 
   return {
     places: results.flatMap((result) => result.data || []),
-    source: results.some((result) => result.source === 'fallback') ? 'fallback' : 'primary',
+    source: results.some((result) => result.source === 'primary') ? 'primary' : 'fallback',
   };
 };
 
@@ -526,12 +659,16 @@ const getCollegeDetailsFromPlaces = async (college) => {
           latitude,
           longitude,
         },
-        mapsEmbedUrl: createMapsEmbedUrl({ latitude, longitude }),
-        mapsUri:
-          latitude !== null && longitude !== null
-            ? `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=15/${latitude}/${longitude}`
-            : '',
-        externalDataAvailable: latitude !== null && longitude !== null,
+        mapsEmbedUrl: createMapsEmbedUrl({
+          query: [safeCollege.name, result.data.display_name || safeCollege.location]
+            .filter(Boolean)
+            .join(', '),
+          latitude,
+          longitude,
+          zoom: 15,
+        }),
+        mapsUri: result.data.googleMapsUri || buildGoogleMapsSearchUrl(result.data.display_name || safeCollege.location),
+        externalDataAvailable: source === 'primary' && latitude !== null && longitude !== null,
       },
       images: [],
       nearby: fallback.nearby,
@@ -557,8 +694,9 @@ const getNearbyPlacesForCollege = async (college, details) => {
     };
   }
 
-  const latitude = details?.college?.coordinates?.latitude ?? null;
-  const longitude = details?.college?.coordinates?.longitude ?? null;
+  const fallbackCoordinates = getFallbackCoordinates(college.location);
+  const latitude = details?.college?.coordinates?.latitude ?? fallbackCoordinates?.latitude ?? null;
+  const longitude = details?.college?.coordinates?.longitude ?? fallbackCoordinates?.longitude ?? null;
 
   if (latitude === null || longitude === null) {
     return {
@@ -577,31 +715,31 @@ const getNearbyPlacesForCollege = async (college, details) => {
         `hostel near ${campus}`,
         `pg near ${campus}`,
         `student hostel near ${area}`,
-      ]),
+      ], anchor),
       searchNearbyByQueries([
         `restaurant near ${campus}`,
         `restaurants near ${area}`,
         `food near ${campus}`,
-      ]),
+      ], anchor),
       searchNearbyByQueries([
         `bus stop near ${campus}`,
         `metro station near ${area}`,
         `railway station near ${area}`,
-      ]),
+      ], anchor),
     ]);
 
-    const mappedHostels = uniquePlaces(hostels.places.map((place) => mapNominatimPlace(place, anchor))).slice(0, 6);
-    const mappedRestaurants = uniquePlaces(restaurants.places.map((place) => mapNominatimPlace(place, anchor))).slice(0, 6);
-    const mappedTransport = uniquePlaces(transport.places.map((place) => mapNominatimPlace(place, anchor))).slice(0, 6);
+    const mappedHostels = uniquePlaces(hostels.places.map((place) => mapGooglePlace(place, anchor))).slice(0, 6);
+    const mappedRestaurants = uniquePlaces(restaurants.places.map((place) => mapGooglePlace(place, anchor))).slice(0, 6);
+    const mappedTransport = uniquePlaces(transport.places.map((place) => mapGooglePlace(place, anchor))).slice(0, 6);
 
     return {
       hostels: withFallbackPlaces(mappedHostels, fallback.hostels),
       restaurants: withFallbackPlaces(mappedRestaurants, fallback.restaurants),
       transport: withFallbackPlaces(mappedTransport, fallback.transport),
       source:
-        [hostels.source, restaurants.source, transport.source].some((item) => item === 'fallback')
-          ? 'fallback'
-          : 'primary',
+        [hostels.source, restaurants.source, transport.source].some((item) => item === 'primary')
+          ? 'primary'
+          : 'fallback',
     };
   } catch (error) {
     return {

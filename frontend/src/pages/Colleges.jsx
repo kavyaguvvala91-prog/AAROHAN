@@ -69,7 +69,7 @@ const Colleges = () => {
       >
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="flex items-start gap-3">
-            <div className="rounded-2xl bg-gradient-to-br from-blue-500 to-violet-500 p-3 text-white shadow-lg shadow-blue-200/50">
+            <div className="rounded-lg bg-slate-100 p-3 text-slate-700">
               <Building2 size={22} />
             </div>
             <div>
@@ -79,7 +79,7 @@ const Colleges = () => {
               </p>
             </div>
           </div>
-          <div className="rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
+          <div className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-600">
             Rich card view
           </div>
         </div>

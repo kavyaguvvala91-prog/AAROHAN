@@ -19,15 +19,15 @@ const menuItems = [
 ];
 
 const SidebarContent = ({ onNavigate, user, onLogout }) => (
-  <div className="flex h-full flex-col border-r border-white/20 bg-[radial-gradient(circle_at_top_left,_rgba(96,165,250,0.28),_transparent_24%),linear-gradient(180deg,#0f172a,#172554_42%,#4c1d95_100%)] text-slate-200">
-    <div className="border-b border-white/10 px-5 py-6">
+  <div className="flex h-full flex-col border-r border-slate-200 bg-white text-slate-700">
+    <div className="border-b border-slate-200 px-5 py-6">
       <div className="flex items-center gap-3">
-        <div className="rounded-2xl bg-gradient-to-br from-blue-500 via-blue-400 to-violet-500 p-3 text-white shadow-lg shadow-blue-900/40">
+        <div className="rounded-lg bg-blue-600 p-3 text-white">
           <Sparkles size={20} />
         </div>
         <div>
-          <p className="text-lg font-bold tracking-tight text-white">Aarohan</p>
-          <p className="text-xs text-blue-100/80">Interactive decision platform</p>
+          <p className="text-lg font-semibold tracking-tight text-slate-900">Aarohan</p>
+          <p className="text-xs text-slate-500">College search</p>
         </div>
       </div>
     </div>
@@ -42,14 +42,14 @@ const SidebarContent = ({ onNavigate, user, onLogout }) => (
             to={item.path}
             onClick={onNavigate}
             className={({ isActive }) =>
-              `group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-all ${
+              `group flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
                 isActive
-                  ? 'bg-white/16 text-white shadow-lg shadow-blue-950/20 ring-1 ring-white/20'
-                  : 'text-blue-100/80 hover:bg-white/10 hover:text-white'
+                  ? 'bg-blue-50 text-blue-700'
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
               }`
             }
           >
-            <span className="rounded-xl bg-white/10 p-2 text-inherit transition group-hover:bg-white/15">
+            <span className="rounded-lg bg-slate-100 p-2 text-inherit">
               <Icon size={18} />
             </span>
             {item.label}
@@ -59,23 +59,23 @@ const SidebarContent = ({ onNavigate, user, onLogout }) => (
     </nav>
 
     <div className="space-y-3 p-4">
-      <div className="rounded-[1.5rem] border border-white/10 bg-white/10 p-4 backdrop-blur">
+      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
         <div className="flex items-center gap-3">
-          <div className="rounded-full bg-gradient-to-br from-emerald-400 to-blue-400 p-2 text-slate-950">
+          <div className="rounded-full bg-white p-2 text-slate-700">
             <UserCircle2 size={18} />
           </div>
           <div>
-            <p className="text-sm font-semibold text-white">{user?.name || 'Student'}</p>
-            <p className="text-xs text-blue-100/70">{user?.email || 'Logged in'}</p>
+            <p className="text-sm font-semibold text-slate-900">{user?.name || 'Student'}</p>
+            <p className="text-xs text-slate-500">{user?.email || 'Logged in'}</p>
           </div>
         </div>
       </div>
 
-      <div className="rounded-[1.5rem] border border-emerald-300/20 bg-emerald-400/10 px-4 py-3 text-xs leading-5 text-emerald-100">
-        Live recommendations, maps, cutoffs, and comparison insights are ready to explore.
+      <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs leading-5 text-slate-500">
+        Explore colleges, compare options, and save what matters.
       </div>
 
-      <button onClick={onLogout} className="app-button-secondary w-full bg-white/85">
+      <button onClick={onLogout} className="app-button-secondary w-full">
         <LogOut size={16} />
         Logout
       </button>
@@ -97,7 +97,7 @@ const Sidebar = ({ mobileOpen, onClose, user, onLogout }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-40 bg-slate-900/30 lg:hidden"
               onClick={onClose}
             />
 
@@ -110,7 +110,7 @@ const Sidebar = ({ mobileOpen, onClose, user, onLogout }) => {
             >
               <button
                 onClick={onClose}
-                className="absolute right-3 top-3 rounded-full border border-white/20 bg-slate-950/60 p-1.5 text-white shadow"
+                className="absolute right-3 top-3 rounded-full border border-slate-300 bg-white p-1.5 text-slate-700 shadow-sm"
               >
                 <X size={16} />
               </button>

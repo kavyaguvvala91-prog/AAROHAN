@@ -107,34 +107,30 @@ const Home = () => {
       <motion.section
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="app-hero p-8 sm:p-10"
-        style={{
-          '--hero-image':
-            "url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80')",
-        }}
+        className="app-card p-8 sm:p-10"
       >
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">
+            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-600">
               <Sparkles size={14} />
               Recommendation Engine
             </div>
-            <h1 className="mt-5 text-4xl font-bold tracking-tight sm:text-5xl">
-              Find the Right College for You
+            <h1 className="mt-5 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
+              Find the right college for you
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-blue-100 sm:text-base">
-              Compare, analyze and make smarter decisions with one colorful, guided experience across rank, budget, location, course, and category.
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+              Compare and shortlist colleges across rank, budget, location, course, and category.
             </p>
           </div>
 
-          <div className="rounded-[1.75rem] border border-white/15 bg-white/10 p-5 backdrop-blur-md">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-400 p-3 text-slate-950">
+              <div className="rounded-lg bg-emerald-50 p-3 text-emerald-700">
                 <Wand2 size={20} />
               </div>
               <div>
-                <p className="text-sm font-semibold text-white">Smarter recommendations</p>
-                <p className="mt-1 text-sm text-blue-100">
+                <p className="text-sm font-semibold text-slate-900">Smarter recommendations</p>
+                <p className="mt-1 text-sm text-slate-600">
                   Submit your preferences once and get category-aware college matches instantly.
                 </p>
               </div>
@@ -149,7 +145,7 @@ const Home = () => {
         className="app-card p-6 sm:p-8"
       >
         <div className="flex items-start gap-3">
-          <div className="rounded-2xl bg-gradient-to-br from-blue-500 to-violet-500 p-3 text-white shadow-lg shadow-blue-200/50">
+          <div className="rounded-lg bg-blue-50 p-3 text-blue-700">
             <Sparkles size={20} />
           </div>
           <div>
@@ -174,7 +170,7 @@ const Home = () => {
       {bootLoading && <Loader label="Loading college data..." />}
 
       {error && (
-        <div className="app-card flex items-center gap-2 border-rose-200 bg-rose-50/90 px-4 py-3 text-sm text-rose-700">
+        <div className="app-card flex items-center gap-2 border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
           <AlertTriangle size={16} />
           {error}
         </div>
@@ -208,7 +204,7 @@ const Home = () => {
                 No results found for search term "{searchTerm}".
               </div>
             ) : (
-              <div className="grid gap-5 sm:grid-cols-2 2xl:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                 {filteredResults.map((college) => (
                   <CollegeCard
                     key={college._id}

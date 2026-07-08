@@ -195,13 +195,13 @@ const CollegeDetails = () => {
       <motion.section
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
-        className="overflow-hidden rounded-3xl bg-[radial-gradient(circle_at_top_left,_rgba(186,230,253,0.9),_transparent_36%),linear-gradient(135deg,#0f172a,#1d4ed8_58%,#0ea5e9)] p-8 text-white shadow-2xl"
+        className="app-card p-8"
       >
-        <p className="text-base uppercase tracking-[0.24em] text-cyan-100">College Details</p>
+        <p className="text-base uppercase tracking-[0.24em] text-slate-500">College Details</p>
         <div className="mt-3 flex flex-wrap items-start justify-between gap-6">
           <div>
-            <h1 className="text-3xl font-bold sm:text-4xl">{college.name}</h1>
-            <p className="mt-3 flex items-center gap-2 text-base text-blue-100 sm:text-lg">
+            <h1 className="text-3xl font-semibold text-slate-900 sm:text-4xl">{college.name}</h1>
+            <p className="mt-3 flex items-center gap-2 text-base text-slate-600 sm:text-lg">
               <MapPin size={16} />
               {college.address || college.location}
             </p>
@@ -212,7 +212,7 @@ const CollegeDetails = () => {
               href={college.mapsUri}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-base font-medium text-white transition hover:bg-white/20"
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-base font-medium text-slate-700 transition hover:bg-slate-50"
             >
               Open in Maps
               <ExternalLink size={14} />
@@ -336,19 +336,19 @@ const CollegeDetails = () => {
           title="Hostels / PGs"
           description="Stay options near the college."
           items={nearby.hostels}
-          emptyMessage="No hostel or PG listings were found from the free map source for this area."
+          emptyMessage="No hostel or PG listings were found from Google Maps for this area."
         />
         <NearbyCategory
           title="Restaurants"
           description="Popular dining options around the campus."
           items={nearby.restaurants}
-          emptyMessage="No restaurant listings were found from the free map source for this area."
+          emptyMessage="No restaurant listings were found from Google Maps for this area."
         />
         <NearbyCategory
           title="Transport"
           description="Nearby bus, metro, or railway access points."
           items={nearby.transport}
-          emptyMessage="No transport listings were found from the free map source for this area."
+          emptyMessage="No transport listings were found from Google Maps for this area."
         />
       </div>
 
@@ -356,7 +356,7 @@ const CollegeDetails = () => {
 
       {details?.fallback && (
         <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-base text-amber-800">
-          Live OpenStreetMap lookup is unavailable right now, so this page is showing fallback
+          Live Google Maps lookup is unavailable right now, so this page is showing fallback
           college information from your dataset.
         </div>
       )}

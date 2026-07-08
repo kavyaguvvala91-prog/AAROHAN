@@ -12,10 +12,10 @@ const Favorites = () => {
       <motion.section
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="app-card bg-gradient-to-br from-rose-50/90 via-white to-violet-50/80 p-6 sm:p-8"
+        className="app-card p-6 sm:p-8"
       >
         <div className="flex items-center gap-4">
-          <div className="rounded-[1.25rem] bg-gradient-to-br from-rose-500 to-pink-500 p-3 text-white shadow-lg shadow-rose-200/50">
+          <div className="rounded-lg bg-rose-50 p-3 text-rose-700">
             <Heart size={24} className="fill-current" />
           </div>
           <div>
@@ -30,7 +30,7 @@ const Favorites = () => {
       {loadingFavorites && <Loader label="Loading favorite colleges..." />}
 
       {favoritesError && (
-        <div className="app-card flex items-center gap-2 border-rose-200 bg-rose-50/90 px-4 py-3 text-sm text-rose-700">
+        <div className="app-card flex items-center gap-2 border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
           <AlertTriangle size={16} />
           {favoritesError}
         </div>
@@ -50,7 +50,7 @@ const Favorites = () => {
               No favorite colleges yet. Tap the heart icon on any college card to save it here.
             </div>
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2 2xl:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
               {favorites.map((college, index) => (
                 <motion.div
                   key={college._id}

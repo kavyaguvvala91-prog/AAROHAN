@@ -31,16 +31,9 @@ const env = {
   jwtSecret: getEnv('JWT_SECRET'),
   frontendUrl: getEnv('FRONTEND_URL'),
   frontendUrls: toList(getEnv('FRONTEND_URL')),
-  geminiApiKey: getEnv('GEMINI_API_KEY'),
-  geminiModel: getEnv('GEMINI_MODEL', 'gemini-2.5-flash'),
-  placesPrimaryApiBaseUrl: getEnv(
-    'PLACES_PRIMARY_API_BASE_URL',
-    'https://nominatim.openstreetmap.org'
-  ),
-  placesFallbackApiBaseUrl: getEnv(
-    'PLACES_FALLBACK_API_BASE_URL',
-    'https://photon.komoot.io'
-  ),
+  groqApiKey: getEnv('GROQ_API_KEY'),
+  groqModel: getEnv('GROQ_MODEL', 'llama-3.1-8b-instant'),
+  googleMapsApiKey: getEnv('GOOGLE_MAPS_API_KEY'),
   externalApiTimeoutMs: toPositiveInteger(getEnv('EXTERNAL_API_TIMEOUT_MS'), 5000),
   rateLimitWindowMs: toPositiveInteger(getEnv('RATE_LIMIT_WINDOW_MS'), 15 * 60 * 1000),
   rateLimitMax: toPositiveInteger(getEnv('RATE_LIMIT_MAX'), 200),

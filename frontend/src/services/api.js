@@ -123,6 +123,31 @@ const shouldRetryWithFallback = (error) => {
 
 export const getApiErrorMessage = (error, fallback = 'Something went wrong. Please try again.') => {
   if (error?.response?.data?.message) return error.response.data.message;
+
+  if (Array.isArray(error?.response?.data?.errors) && error.response.data.errors.length) {
+    return error.response.data.errors
+      .map((item) => item?.message)
+      .filter(Boolean)
+      .join(' ');
+  }
+
+  if (typeof error?.response?.data === 'string') {
+    const normalizedBody = error.response.data.toLowerCase();
+    const contentType = String(error?.response?.headers?.['content-type'] || '').toLowerCase();
+
+    if (contentType.includes('text/html') || normalizedBody.includes('<html')) {
+      return `The frontend reached a web page instead of the API. Check the deployed API URL configured for ${PRIMARY_API_BASE_URL || '/api'}.`;
+    }
+  }
+
+  if (error?.response?.status === 404) {
+    return `API endpoint not found. Check the deployed API URL configured for ${PRIMARY_API_BASE_URL || '/api'}.`;
+  }
+
+  if (error?.response?.status === 405) {
+    return 'This API endpoint does not allow that request method. Check the frontend API base URL and backend routes.';
+  }
+
   if (error?.code === 'ERR_NETWORK') {
     return FALLBACK_API_BASE_URL
       ? 'Network error. Both primary and fallback backends were unavailable.'

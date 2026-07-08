@@ -1,6 +1,6 @@
-const { generateChatReply } = require('../services/geminiService');
+const { generateChatReply } = require('../services/groqService');
 
-const chatWithGemini = async (req, res, next) => {
+const chatWithGroq = async (req, res, next) => {
   try {
     const { message, history = [] } = req.body;
 
@@ -26,5 +26,5 @@ const chatWithGemini = async (req, res, next) => {
 };
 
 module.exports = {
-  chatWithGemini,
+  chatWithGroq,
 };

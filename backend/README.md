@@ -11,7 +11,8 @@ Production-ready Express + MongoDB API for the Aarohan platform.
 - Global error handler with safe production responses
 - Structured logging in production
 - Health check endpoint at `GET /api/health`
-- External places API failover with timeout handling
+- Google Maps lookup with dataset fallback when live data is unavailable
+- Groq-powered chatbot for college guidance
 
 ## Required Environment Variables
 
@@ -23,10 +24,9 @@ PORT=5000
 MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/college_discovery
 JWT_SECRET=replace_with_a_long_random_secret
 FRONTEND_URL=http://localhost:5173,https://your-frontend-domain.vercel.app
-GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-2.5-flash
-PLACES_PRIMARY_API_BASE_URL=https://nominatim.openstreetmap.org
-PLACES_FALLBACK_API_BASE_URL=https://photon.komoot.io
+GROQ_API_KEY=your_groq_api_key_here
+GROQ_MODEL=llama-3.1-8b-instant
+GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
 EXTERNAL_API_TIMEOUT_MS=5000
 RATE_LIMIT_WINDOW_MS=900000
 RATE_LIMIT_MAX=200
@@ -36,6 +36,7 @@ LOG_LEVEL=info
 
 Use MongoDB Atlas in production for `MONGO_URI`.
 `FRONTEND_URL` accepts a comma-separated allowlist so you can support local development and deployed frontend domains at the same time.
+`GOOGLE_MAPS_API_KEY` is used for server-side geocoding and Places lookups; the campus map iframe uses a public Google Maps embed URL and does not require the Maps Embed API.
 
 ## Local Development
 
@@ -83,5 +84,6 @@ Suggested Render settings:
 - `POST /api/chat`
 
 ## Notes
-- Responses from `GET /api/college-details` and `GET /api/nearby` include `source: "primary"` or `source: "fallback"` for external places data.
+- Responses from `GET /api/college-details` and `GET /api/nearby` include `source: "primary"` or `source: "fallback"` for Google Maps lookups and dataset fallbacks.
+- `POST /api/chat` uses the Groq OpenAI-compatible chat endpoint.
 - Secrets stay server-side in env files and should never be committed.
