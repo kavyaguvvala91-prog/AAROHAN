@@ -7,6 +7,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
+    build: {
+      chunkSizeWarningLimit: 1200,
+    },
     server: {
       proxy: {
         '/api': proxyTarget,
